@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/disk?useSLL=true&serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 8
+      min-idle: 5
+      max-active: 50
+
+      timeBetweenEvictionRunsMillis: 20000
+      minEvictableIdleTimeMillis: 3600000
+      removeAbandoned: true
+      removeAbandonedTimeout: 40
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 200MB
+
+#  redis:
+#    host: 127.0.0.1
+#    port: 6379
+
+
+#mybatis:
+#  mapper-locations: classpath*:/mapper/*Dao.xml
+#  type-aliases-package: com.springboot.disk.dao
