@@ -1,4 +1,4 @@
 package com.henu.exam.service;
 
-public class UserService {
+public class AdminService {
 }
