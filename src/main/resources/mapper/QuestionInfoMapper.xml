@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.henu.exam.dao.QuestionInfoMapper">
+  <resultMap id="BaseResultMap" type="com.henu.exam.bean.QuestionInfo">
+    <id column="QUESTIONID" jdbcType="VARCHAR" property="questionid" />
+    <result column="QUESTIONSDBID" jdbcType="VARCHAR" property="questionsdbid" />
+    <result column="QUESTIONTYPE" jdbcType="DECIMAL" property="questiontype" />
+    <result column="QUESTIONKEY" jdbcType="VARCHAR" property="questionkey" />
+    <result column="QUESTIONRESOLVE" jdbcType="VARCHAR" property="questionresolve" />
+    <result column="QUESTIONCREATER" jdbcType="VARCHAR" property="questioncreater" />
+    <result column="QUESTIONDATE" jdbcType="TIMESTAMP" property="questiondate" />
+    <result column="NOTE" jdbcType="VARCHAR" property="note" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.henu.exam.bean.QuestionInfoWithBLOBs">
+    <result column="QUESTIONCONTENT" jdbcType="CLOB" property="questioncontent" />
+    <result column="QUESTIONDATA" jdbcType="CLOB" property="questiondata" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    QUESTIONID, QUESTIONSDBID, QUESTIONTYPE, QUESTIONKEY, QUESTIONRESOLVE, QUESTIONCREATER, 
+    QUESTIONDATE, NOTE
+  </sql>
+  <sql id="Blob_Column_List">
+    QUESTIONCONTENT, QUESTIONDATA
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from QUESTIONSINFO
+    where QUESTIONID = #{questionid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from QUESTIONSINFO
+    where QUESTIONID = #{questionid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.henu.exam.bean.QuestionInfoWithBLOBs">
+    insert into QUESTIONSINFO (QUESTIONID, QUESTIONSDBID, QUESTIONTYPE, 
+      QUESTIONKEY, QUESTIONRESOLVE, QUESTIONCREATER, 
+      QUESTIONDATE, NOTE, QUESTIONCONTENT, 
+      QUESTIONDATA)
+    values (#{questionid,jdbcType=VARCHAR}, #{questionsdbid,jdbcType=VARCHAR}, #{questiontype,jdbcType=DECIMAL}, 
+      #{questionkey,jdbcType=VARCHAR}, #{questionresolve,jdbcType=VARCHAR}, #{questioncreater,jdbcType=VARCHAR}, 
+      #{questiondate,jdbcType=TIMESTAMP}, #{note,jdbcType=VARCHAR}, #{questioncontent,jdbcType=CLOB}, 
+      #{questiondata,jdbcType=CLOB})
+  </insert>
+  <insert id="insertSelective" parameterType="com.henu.exam.bean.QuestionInfoWithBLOBs">
+    insert into QUESTIONSINFO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="questionid != null">
+        QUESTIONID,
+      </if>
+      <if test="questionsdbid != null">
+        QUESTIONSDBID,
+      </if>
+      <if test="questiontype != null">
+        QUESTIONTYPE,
+      </if>
+      <if test="questionkey != null">
+        QUESTIONKEY,
+      </if>
+      <if test="questionresolve != null">
+        QUESTIONRESOLVE,
+      </if>
+      <if test="questioncreater != null">
+        QUESTIONCREATER,
+      </if>
+      <if test="questiondate != null">
+        QUESTIONDATE,
+      </if>
+      <if test="note != null">
+        NOTE,
+      </if>
+      <if test="questioncontent != null">
+        QUESTIONCONTENT,
+      </if>
+      <if test="questiondata != null">
+        QUESTIONDATA,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="questionid != null">
+        #{questionid,jdbcType=VARCHAR},
+      </if>
+      <if test="questionsdbid != null">
+        #{questionsdbid,jdbcType=VARCHAR},
+      </if>
+      <if test="questiontype != null">
+        #{questiontype,jdbcType=DECIMAL},
+      </if>
+      <if test="questionkey != null">
+        #{questionkey,jdbcType=VARCHAR},
+      </if>
+      <if test="questionresolve != null">
+        #{questionresolve,jdbcType=VARCHAR},
+      </if>
+      <if test="questioncreater != null">
+        #{questioncreater,jdbcType=VARCHAR},
+      </if>
+      <if test="questiondate != null">
+        #{questiondate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="questioncontent != null">
+        #{questioncontent,jdbcType=CLOB},
+      </if>
+      <if test="questiondata != null">
+        #{questiondata,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.henu.exam.bean.QuestionInfoWithBLOBs">
+    update QUESTIONSINFO
+    <set>
+      <if test="questionsdbid != null">
+        QUESTIONSDBID = #{questionsdbid,jdbcType=VARCHAR},
+      </if>
+      <if test="questiontype != null">
+        QUESTIONTYPE = #{questiontype,jdbcType=DECIMAL},
+      </if>
+      <if test="questionkey != null">
+        QUESTIONKEY = #{questionkey,jdbcType=VARCHAR},
+      </if>
+      <if test="questionresolve != null">
+        QUESTIONRESOLVE = #{questionresolve,jdbcType=VARCHAR},
+      </if>
+      <if test="questioncreater != null">
+        QUESTIONCREATER = #{questioncreater,jdbcType=VARCHAR},
+      </if>
+      <if test="questiondate != null">
+        QUESTIONDATE = #{questiondate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="note != null">
+        NOTE = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="questioncontent != null">
+        QUESTIONCONTENT = #{questioncontent,jdbcType=CLOB},
+      </if>
+      <if test="questiondata != null">
+        QUESTIONDATA = #{questiondata,jdbcType=CLOB},
+      </if>
+    </set>
+    where QUESTIONID = #{questionid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.henu.exam.bean.QuestionInfoWithBLOBs">
+    update QUESTIONSINFO
+    set QUESTIONSDBID = #{questionsdbid,jdbcType=VARCHAR},
+      QUESTIONTYPE = #{questiontype,jdbcType=DECIMAL},
+      QUESTIONKEY = #{questionkey,jdbcType=VARCHAR},
+      QUESTIONRESOLVE = #{questionresolve,jdbcType=VARCHAR},
+      QUESTIONCREATER = #{questioncreater,jdbcType=VARCHAR},
+      QUESTIONDATE = #{questiondate,jdbcType=TIMESTAMP},
+      NOTE = #{note,jdbcType=VARCHAR},
+      QUESTIONCONTENT = #{questioncontent,jdbcType=CLOB},
+      QUESTIONDATA = #{questiondata,jdbcType=CLOB}
+    where QUESTIONID = #{questionid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.henu.exam.bean.QuestionInfo">
+    update QUESTIONSINFO
+    set QUESTIONSDBID = #{questionsdbid,jdbcType=VARCHAR},
+      QUESTIONTYPE = #{questiontype,jdbcType=DECIMAL},
+      QUESTIONKEY = #{questionkey,jdbcType=VARCHAR},
+      QUESTIONRESOLVE = #{questionresolve,jdbcType=VARCHAR},
+      QUESTIONCREATER = #{questioncreater,jdbcType=VARCHAR},
+      QUESTIONDATE = #{questiondate,jdbcType=TIMESTAMP},
+      NOTE = #{note,jdbcType=VARCHAR}
+    where QUESTIONID = #{questionid,jdbcType=VARCHAR}
+  </update>
+</mapper>

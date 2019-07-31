@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.henu.exam.dao.ExamInfoMapper">
+  <resultMap id="BaseResultMap" type="com.henu.exam.bean.ExamInfo">
+    <id column="EXAMID" jdbcType="VARCHAR" property="examid" />
+    <id column="PAPERID" jdbcType="VARCHAR" property="paperid" />
+    <id column="TRAINEEID" jdbcType="VARCHAR" property="traineeid" />
+    <result column="PAPERMARK" jdbcType="DECIMAL" property="papermark" />
+    <result column="EXAMBEGDATE" jdbcType="TIMESTAMP" property="exambegdate" />
+    <result column="EXAMENDDATE" jdbcType="TIMESTAMP" property="examenddate" />
+    <result column="EXAMSTATUS" jdbcType="DECIMAL" property="examstatus" />
+    <result column="NOTE" jdbcType="VARCHAR" property="note" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.henu.exam.bean.ExamInfoWithBLOBs">
+    <result column="EXAMDATA" jdbcType="CLOB" property="examdata" />
+    <result column="EXAMCHECK" jdbcType="CLOB" property="examcheck" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    EXAMID, PAPERID, TRAINEEID, PAPERMARK, EXAMBEGDATE, EXAMENDDATE, EXAMSTATUS, NOTE
+  </sql>
+  <sql id="Blob_Column_List">
+    EXAMDATA, EXAMCHECK
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.henu.exam.bean.ExamInfoKey" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from EXAMINFO
+    where EXAMID = #{examid,jdbcType=VARCHAR}
+      and PAPERID = #{paperid,jdbcType=VARCHAR}
+      and TRAINEEID = #{traineeid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.henu.exam.bean.ExamInfoKey">
+    delete from EXAMINFO
+    where EXAMID = #{examid,jdbcType=VARCHAR}
+      and PAPERID = #{paperid,jdbcType=VARCHAR}
+      and TRAINEEID = #{traineeid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.henu.exam.bean.ExamInfoWithBLOBs">
+    insert into EXAMINFO (EXAMID, PAPERID, TRAINEEID, 
+      PAPERMARK, EXAMBEGDATE, EXAMENDDATE, 
+      EXAMSTATUS, NOTE, EXAMDATA, 
+      EXAMCHECK)
+    values (#{examid,jdbcType=VARCHAR}, #{paperid,jdbcType=VARCHAR}, #{traineeid,jdbcType=VARCHAR}, 
+      #{papermark,jdbcType=DECIMAL}, #{exambegdate,jdbcType=TIMESTAMP}, #{examenddate,jdbcType=TIMESTAMP}, 
+      #{examstatus,jdbcType=DECIMAL}, #{note,jdbcType=VARCHAR}, #{examdata,jdbcType=CLOB}, 
+      #{examcheck,jdbcType=CLOB})
+  </insert>
+  <insert id="insertSelective" parameterType="com.henu.exam.bean.ExamInfoWithBLOBs">
+    insert into EXAMINFO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="examid != null">
+        EXAMID,
+      </if>
+      <if test="paperid != null">
+        PAPERID,
+      </if>
+      <if test="traineeid != null">
+        TRAINEEID,
+      </if>
+      <if test="papermark != null">
+        PAPERMARK,
+      </if>
+      <if test="exambegdate != null">
+        EXAMBEGDATE,
+      </if>
+      <if test="examenddate != null">
+        EXAMENDDATE,
+      </if>
+      <if test="examstatus != null">
+        EXAMSTATUS,
+      </if>
+      <if test="note != null">
+        NOTE,
+      </if>
+      <if test="examdata != null">
+        EXAMDATA,
+      </if>
+      <if test="examcheck != null">
+        EXAMCHECK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="examid != null">
+        #{examid,jdbcType=VARCHAR},
+      </if>
+      <if test="paperid != null">
+        #{paperid,jdbcType=VARCHAR},
+      </if>
+      <if test="traineeid != null">
+        #{traineeid,jdbcType=VARCHAR},
+      </if>
+      <if test="papermark != null">
+        #{papermark,jdbcType=DECIMAL},
+      </if>
+      <if test="exambegdate != null">
+        #{exambegdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="examenddate != null">
+        #{examenddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="examstatus != null">
+        #{examstatus,jdbcType=DECIMAL},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="examdata != null">
+        #{examdata,jdbcType=CLOB},
+      </if>
+      <if test="examcheck != null">
+        #{examcheck,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.henu.exam.bean.ExamInfoWithBLOBs">
+    update EXAMINFO
+    <set>
+      <if test="papermark != null">
+        PAPERMARK = #{papermark,jdbcType=DECIMAL},
+      </if>
+      <if test="exambegdate != null">
+        EXAMBEGDATE = #{exambegdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="examenddate != null">
+        EXAMENDDATE = #{examenddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="examstatus != null">
+        EXAMSTATUS = #{examstatus,jdbcType=DECIMAL},
+      </if>
+      <if test="note != null">
+        NOTE = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="examdata != null">
+        EXAMDATA = #{examdata,jdbcType=CLOB},
+      </if>
+      <if test="examcheck != null">
+        EXAMCHECK = #{examcheck,jdbcType=CLOB},
+      </if>
+    </set>
+    where EXAMID = #{examid,jdbcType=VARCHAR}
+      and PAPERID = #{paperid,jdbcType=VARCHAR}
+      and TRAINEEID = #{traineeid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.henu.exam.bean.ExamInfoWithBLOBs">
+    update EXAMINFO
+    set PAPERMARK = #{papermark,jdbcType=DECIMAL},
+      EXAMBEGDATE = #{exambegdate,jdbcType=TIMESTAMP},
+      EXAMENDDATE = #{examenddate,jdbcType=TIMESTAMP},
+      EXAMSTATUS = #{examstatus,jdbcType=DECIMAL},
+      NOTE = #{note,jdbcType=VARCHAR},
+      EXAMDATA = #{examdata,jdbcType=CLOB},
+      EXAMCHECK = #{examcheck,jdbcType=CLOB}
+    where EXAMID = #{examid,jdbcType=VARCHAR}
+      and PAPERID = #{paperid,jdbcType=VARCHAR}
+      and TRAINEEID = #{traineeid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.henu.exam.bean.ExamInfo">
+    update EXAMINFO
+    set PAPERMARK = #{papermark,jdbcType=DECIMAL},
+      EXAMBEGDATE = #{exambegdate,jdbcType=TIMESTAMP},
+      EXAMENDDATE = #{examenddate,jdbcType=TIMESTAMP},
+      EXAMSTATUS = #{examstatus,jdbcType=DECIMAL},
+      NOTE = #{note,jdbcType=VARCHAR}
+    where EXAMID = #{examid,jdbcType=VARCHAR}
+      and PAPERID = #{paperid,jdbcType=VARCHAR}
+      and TRAINEEID = #{traineeid,jdbcType=VARCHAR}
+  </update>
+</mapper>

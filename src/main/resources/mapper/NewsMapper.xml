@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.henu.exam.dao.NewsMapper">
+  <resultMap id="BaseResultMap" type="com.henu.exam.bean.News">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="TITLE" jdbcType="VARCHAR" property="title" />
+    <result column="TOP" jdbcType="DECIMAL" property="top" />
+    <result column="CREATOR" jdbcType="VARCHAR" property="creator" />
+    <result column="PICTURE" jdbcType="VARCHAR" property="picture" />
+    <result column="DATE" jdbcType="TIMESTAMP" property="date" />
+    <result column="NOTE" jdbcType="VARCHAR" property="note" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.henu.exam.bean.News">
+    <result column="CONTENT" jdbcType="CLOB" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, TITLE, TOP, CREATOR, PICTURE, DATE, NOTE
+  </sql>
+  <sql id="Blob_Column_List">
+    CONTENT
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from NEWS
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from NEWS
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.henu.exam.bean.News">
+    insert into NEWS (ID, TITLE, TOP, 
+      CREATOR, PICTURE, DATE, 
+      NOTE, CONTENT)
+    values (#{id,jdbcType=DECIMAL}, #{title,jdbcType=VARCHAR}, #{top,jdbcType=DECIMAL}, 
+      #{creator,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP}, 
+      #{note,jdbcType=VARCHAR}, #{content,jdbcType=CLOB})
+  </insert>
+  <insert id="insertSelective" parameterType="com.henu.exam.bean.News">
+    insert into NEWS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="title != null">
+        TITLE,
+      </if>
+      <if test="top != null">
+        TOP,
+      </if>
+      <if test="creator != null">
+        CREATOR,
+      </if>
+      <if test="picture != null">
+        PICTURE,
+      </if>
+      <if test="date != null">
+        DATE,
+      </if>
+      <if test="note != null">
+        NOTE,
+      </if>
+      <if test="content != null">
+        CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="top != null">
+        #{top,jdbcType=DECIMAL},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null">
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.henu.exam.bean.News">
+    update NEWS
+    <set>
+      <if test="title != null">
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="top != null">
+        TOP = #{top,jdbcType=DECIMAL},
+      </if>
+      <if test="creator != null">
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null">
+        PICTURE = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        DATE = #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="note != null">
+        NOTE = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        CONTENT = #{content,jdbcType=CLOB},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.henu.exam.bean.News">
+    update NEWS
+    set TITLE = #{title,jdbcType=VARCHAR},
+      TOP = #{top,jdbcType=DECIMAL},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      PICTURE = #{picture,jdbcType=VARCHAR},
+      DATE = #{date,jdbcType=TIMESTAMP},
+      NOTE = #{note,jdbcType=VARCHAR},
+      CONTENT = #{content,jdbcType=CLOB}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.henu.exam.bean.News">
+    update NEWS
+    set TITLE = #{title,jdbcType=VARCHAR},
+      TOP = #{top,jdbcType=DECIMAL},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      PICTURE = #{picture,jdbcType=VARCHAR},
+      DATE = #{date,jdbcType=TIMESTAMP},
+      NOTE = #{note,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

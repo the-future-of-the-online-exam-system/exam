@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.henu.exam.dao.DepartAdminMapper">
+  <resultMap id="BaseResultMap" type="com.henu.exam.bean.DepartAdmin">
+    <id column="DEPARTADMINID" jdbcType="VARCHAR" property="departadminid" />
+    <result column="DEPARTADMINNANE" jdbcType="VARCHAR" property="departadminnane" />
+    <result column="DEPARTID" jdbcType="VARCHAR" property="departid" />
+    <result column="COMID" jdbcType="VARCHAR" property="comid" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+    <result column="TITLE" jdbcType="VARCHAR" property="title" />
+    <result column="POSITION" jdbcType="VARCHAR" property="position" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="SALT" jdbcType="VARCHAR" property="salt" />
+    <result column="DATE" jdbcType="TIMESTAMP" property="date" />
+    <result column="ROLEID" jdbcType="VARCHAR" property="roleid" />
+    <result column="STATUS" jdbcType="DECIMAL" property="status" />
+    <result column="NOTE" jdbcType="VARCHAR" property="note" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    DEPARTADMINID, DEPARTADMINNANE, DEPARTID, COMID, PHONE, TITLE, POSITION, EMAIL, SALT, 
+    DATE, ROLEID, STATUS, NOTE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from DEPARTADMIN
+    where DEPARTADMINID = #{departadminid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from DEPARTADMIN
+    where DEPARTADMINID = #{departadminid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.henu.exam.bean.DepartAdmin">
+    insert into DEPARTADMIN (DEPARTADMINID, DEPARTADMINNANE, DEPARTID, 
+      COMID, PHONE, TITLE, 
+      POSITION, EMAIL, SALT, 
+      DATE, ROLEID, STATUS, 
+      NOTE)
+    values (#{departadminid,jdbcType=VARCHAR}, #{departadminnane,jdbcType=VARCHAR}, #{departid,jdbcType=VARCHAR}, 
+      #{comid,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{position,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, 
+      #{date,jdbcType=TIMESTAMP}, #{roleid,jdbcType=VARCHAR}, #{status,jdbcType=DECIMAL}, 
+      #{note,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.henu.exam.bean.DepartAdmin">
+    insert into DEPARTADMIN
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="departadminid != null">
+        DEPARTADMINID,
+      </if>
+      <if test="departadminnane != null">
+        DEPARTADMINNANE,
+      </if>
+      <if test="departid != null">
+        DEPARTID,
+      </if>
+      <if test="comid != null">
+        COMID,
+      </if>
+      <if test="phone != null">
+        PHONE,
+      </if>
+      <if test="title != null">
+        TITLE,
+      </if>
+      <if test="position != null">
+        POSITION,
+      </if>
+      <if test="email != null">
+        EMAIL,
+      </if>
+      <if test="salt != null">
+        SALT,
+      </if>
+      <if test="date != null">
+        DATE,
+      </if>
+      <if test="roleid != null">
+        ROLEID,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="note != null">
+        NOTE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="departadminid != null">
+        #{departadminid,jdbcType=VARCHAR},
+      </if>
+      <if test="departadminnane != null">
+        #{departadminnane,jdbcType=VARCHAR},
+      </if>
+      <if test="departid != null">
+        #{departid,jdbcType=VARCHAR},
+      </if>
+      <if test="comid != null">
+        #{comid,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="roleid != null">
+        #{roleid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.henu.exam.bean.DepartAdmin">
+    update DEPARTADMIN
+    <set>
+      <if test="departadminnane != null">
+        DEPARTADMINNANE = #{departadminnane,jdbcType=VARCHAR},
+      </if>
+      <if test="departid != null">
+        DEPARTID = #{departid,jdbcType=VARCHAR},
+      </if>
+      <if test="comid != null">
+        COMID = #{comid,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        POSITION = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        SALT = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        DATE = #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="roleid != null">
+        ROLEID = #{roleid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="note != null">
+        NOTE = #{note,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DEPARTADMINID = #{departadminid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.henu.exam.bean.DepartAdmin">
+    update DEPARTADMIN
+    set DEPARTADMINNANE = #{departadminnane,jdbcType=VARCHAR},
+      DEPARTID = #{departid,jdbcType=VARCHAR},
+      COMID = #{comid,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      TITLE = #{title,jdbcType=VARCHAR},
+      POSITION = #{position,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      SALT = #{salt,jdbcType=VARCHAR},
+      DATE = #{date,jdbcType=TIMESTAMP},
+      ROLEID = #{roleid,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=DECIMAL},
+      NOTE = #{note,jdbcType=VARCHAR}
+    where DEPARTADMINID = #{departadminid,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.henu.exam.dao.ExamCertificateMapper">
+  <resultMap id="BaseResultMap" type="com.henu.exam.bean.ExamCertificate">
+    <id column="TRAINEEID" jdbcType="VARCHAR" property="traineeid" />
+    <result column="COMID" jdbcType="VARCHAR" property="comid" />
+    <result column="PAPERID" jdbcType="VARCHAR" property="paperid" />
+    <result column="DEPARTADMIN" jdbcType="VARCHAR" property="departadmin" />
+    <result column="CLASSHOUR" jdbcType="DECIMAL" property="classhour" />
+    <result column="IFPASS" jdbcType="DECIMAL" property="ifpass" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    TRAINEEID, COMID, PAPERID, DEPARTADMIN, CLASSHOUR, IFPASS
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from EXAMCERTIFICATE
+    where TRAINEEID = #{traineeid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from EXAMCERTIFICATE
+    where TRAINEEID = #{traineeid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.henu.exam.bean.ExamCertificate">
+    insert into EXAMCERTIFICATE (TRAINEEID, COMID, PAPERID, 
+      DEPARTADMIN, CLASSHOUR, IFPASS
+      )
+    values (#{traineeid,jdbcType=VARCHAR}, #{comid,jdbcType=VARCHAR}, #{paperid,jdbcType=VARCHAR}, 
+      #{departadmin,jdbcType=VARCHAR}, #{classhour,jdbcType=DECIMAL}, #{ifpass,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.henu.exam.bean.ExamCertificate">
+    insert into EXAMCERTIFICATE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="traineeid != null">
+        TRAINEEID,
+      </if>
+      <if test="comid != null">
+        COMID,
+      </if>
+      <if test="paperid != null">
+        PAPERID,
+      </if>
+      <if test="departadmin != null">
+        DEPARTADMIN,
+      </if>
+      <if test="classhour != null">
+        CLASSHOUR,
+      </if>
+      <if test="ifpass != null">
+        IFPASS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="traineeid != null">
+        #{traineeid,jdbcType=VARCHAR},
+      </if>
+      <if test="comid != null">
+        #{comid,jdbcType=VARCHAR},
+      </if>
+      <if test="paperid != null">
+        #{paperid,jdbcType=VARCHAR},
+      </if>
+      <if test="departadmin != null">
+        #{departadmin,jdbcType=VARCHAR},
+      </if>
+      <if test="classhour != null">
+        #{classhour,jdbcType=DECIMAL},
+      </if>
+      <if test="ifpass != null">
+        #{ifpass,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.henu.exam.bean.ExamCertificate">
+    update EXAMCERTIFICATE
+    <set>
+      <if test="comid != null">
+        COMID = #{comid,jdbcType=VARCHAR},
+      </if>
+      <if test="paperid != null">
+        PAPERID = #{paperid,jdbcType=VARCHAR},
+      </if>
+      <if test="departadmin != null">
+        DEPARTADMIN = #{departadmin,jdbcType=VARCHAR},
+      </if>
+      <if test="classhour != null">
+        CLASSHOUR = #{classhour,jdbcType=DECIMAL},
+      </if>
+      <if test="ifpass != null">
+        IFPASS = #{ifpass,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where TRAINEEID = #{traineeid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.henu.exam.bean.ExamCertificate">
+    update EXAMCERTIFICATE
+    set COMID = #{comid,jdbcType=VARCHAR},
+      PAPERID = #{paperid,jdbcType=VARCHAR},
+      DEPARTADMIN = #{departadmin,jdbcType=VARCHAR},
+      CLASSHOUR = #{classhour,jdbcType=DECIMAL},
+      IFPASS = #{ifpass,jdbcType=DECIMAL}
+    where TRAINEEID = #{traineeid,jdbcType=VARCHAR}
+  </update>
+</mapper>

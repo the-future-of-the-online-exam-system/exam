@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.henu.exam.dao.PaperInfoMapper">
+  <resultMap id="BaseResultMap" type="com.henu.exam.bean.PaperInfo">
+    <id column="PAPERID" jdbcType="VARCHAR" property="paperid" />
+    <result column="PAPERNAME" jdbcType="VARCHAR" property="papername" />
+    <result column="PAPERSTATUS" jdbcType="DECIMAL" property="paperstatus" />
+    <result column="EXAMBEGDATE" jdbcType="TIMESTAMP" property="exambegdate" />
+    <result column="EXAMENDDATE" jdbcType="TIMESTAMP" property="examenddate" />
+    <result column="EXAMDURATION" jdbcType="DECIMAL" property="examduration" />
+    <result column="TOTALSCORE" jdbcType="DECIMAL" property="totalscore" />
+    <result column="PAPERREMARK" jdbcType="VARCHAR" property="paperremark" />
+    <result column="EXAMDATA" jdbcType="VARCHAR" property="examdata" />
+    <result column="EXAMPOSTER" jdbcType="TIMESTAMP" property="examposter" />
+    <result column="PAPERSHOWMODE" jdbcType="DECIMAL" property="papershowmode" />
+    <result column="PAPERCREATOR" jdbcType="VARCHAR" property="papercreator" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    PAPERID, PAPERNAME, PAPERSTATUS, EXAMBEGDATE, EXAMENDDATE, EXAMDURATION, TOTALSCORE, 
+    PAPERREMARK, EXAMDATA, EXAMPOSTER, PAPERSHOWMODE, PAPERCREATOR
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from PAPERINFO
+    where PAPERID = #{paperid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from PAPERINFO
+    where PAPERID = #{paperid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.henu.exam.bean.PaperInfo">
+    insert into PAPERINFO (PAPERID, PAPERNAME, PAPERSTATUS, 
+      EXAMBEGDATE, EXAMENDDATE, EXAMDURATION, 
+      TOTALSCORE, PAPERREMARK, EXAMDATA, 
+      EXAMPOSTER, PAPERSHOWMODE, PAPERCREATOR
+      )
+    values (#{paperid,jdbcType=VARCHAR}, #{papername,jdbcType=VARCHAR}, #{paperstatus,jdbcType=DECIMAL}, 
+      #{exambegdate,jdbcType=TIMESTAMP}, #{examenddate,jdbcType=TIMESTAMP}, #{examduration,jdbcType=DECIMAL}, 
+      #{totalscore,jdbcType=DECIMAL}, #{paperremark,jdbcType=VARCHAR}, #{examdata,jdbcType=VARCHAR}, 
+      #{examposter,jdbcType=TIMESTAMP}, #{papershowmode,jdbcType=DECIMAL}, #{papercreator,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.henu.exam.bean.PaperInfo">
+    insert into PAPERINFO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="paperid != null">
+        PAPERID,
+      </if>
+      <if test="papername != null">
+        PAPERNAME,
+      </if>
+      <if test="paperstatus != null">
+        PAPERSTATUS,
+      </if>
+      <if test="exambegdate != null">
+        EXAMBEGDATE,
+      </if>
+      <if test="examenddate != null">
+        EXAMENDDATE,
+      </if>
+      <if test="examduration != null">
+        EXAMDURATION,
+      </if>
+      <if test="totalscore != null">
+        TOTALSCORE,
+      </if>
+      <if test="paperremark != null">
+        PAPERREMARK,
+      </if>
+      <if test="examdata != null">
+        EXAMDATA,
+      </if>
+      <if test="examposter != null">
+        EXAMPOSTER,
+      </if>
+      <if test="papershowmode != null">
+        PAPERSHOWMODE,
+      </if>
+      <if test="papercreator != null">
+        PAPERCREATOR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="paperid != null">
+        #{paperid,jdbcType=VARCHAR},
+      </if>
+      <if test="papername != null">
+        #{papername,jdbcType=VARCHAR},
+      </if>
+      <if test="paperstatus != null">
+        #{paperstatus,jdbcType=DECIMAL},
+      </if>
+      <if test="exambegdate != null">
+        #{exambegdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="examenddate != null">
+        #{examenddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="examduration != null">
+        #{examduration,jdbcType=DECIMAL},
+      </if>
+      <if test="totalscore != null">
+        #{totalscore,jdbcType=DECIMAL},
+      </if>
+      <if test="paperremark != null">
+        #{paperremark,jdbcType=VARCHAR},
+      </if>
+      <if test="examdata != null">
+        #{examdata,jdbcType=VARCHAR},
+      </if>
+      <if test="examposter != null">
+        #{examposter,jdbcType=TIMESTAMP},
+      </if>
+      <if test="papershowmode != null">
+        #{papershowmode,jdbcType=DECIMAL},
+      </if>
+      <if test="papercreator != null">
+        #{papercreator,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.henu.exam.bean.PaperInfo">
+    update PAPERINFO
+    <set>
+      <if test="papername != null">
+        PAPERNAME = #{papername,jdbcType=VARCHAR},
+      </if>
+      <if test="paperstatus != null">
+        PAPERSTATUS = #{paperstatus,jdbcType=DECIMAL},
+      </if>
+      <if test="exambegdate != null">
+        EXAMBEGDATE = #{exambegdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="examenddate != null">
+        EXAMENDDATE = #{examenddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="examduration != null">
+        EXAMDURATION = #{examduration,jdbcType=DECIMAL},
+      </if>
+      <if test="totalscore != null">
+        TOTALSCORE = #{totalscore,jdbcType=DECIMAL},
+      </if>
+      <if test="paperremark != null">
+        PAPERREMARK = #{paperremark,jdbcType=VARCHAR},
+      </if>
+      <if test="examdata != null">
+        EXAMDATA = #{examdata,jdbcType=VARCHAR},
+      </if>
+      <if test="examposter != null">
+        EXAMPOSTER = #{examposter,jdbcType=TIMESTAMP},
+      </if>
+      <if test="papershowmode != null">
+        PAPERSHOWMODE = #{papershowmode,jdbcType=DECIMAL},
+      </if>
+      <if test="papercreator != null">
+        PAPERCREATOR = #{papercreator,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PAPERID = #{paperid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.henu.exam.bean.PaperInfo">
+    update PAPERINFO
+    set PAPERNAME = #{papername,jdbcType=VARCHAR},
+      PAPERSTATUS = #{paperstatus,jdbcType=DECIMAL},
+      EXAMBEGDATE = #{exambegdate,jdbcType=TIMESTAMP},
+      EXAMENDDATE = #{examenddate,jdbcType=TIMESTAMP},
+      EXAMDURATION = #{examduration,jdbcType=DECIMAL},
+      TOTALSCORE = #{totalscore,jdbcType=DECIMAL},
+      PAPERREMARK = #{paperremark,jdbcType=VARCHAR},
+      EXAMDATA = #{examdata,jdbcType=VARCHAR},
+      EXAMPOSTER = #{examposter,jdbcType=TIMESTAMP},
+      PAPERSHOWMODE = #{papershowmode,jdbcType=DECIMAL},
+      PAPERCREATOR = #{papercreator,jdbcType=VARCHAR}
+    where PAPERID = #{paperid,jdbcType=VARCHAR}
+  </update>
+</mapper>
