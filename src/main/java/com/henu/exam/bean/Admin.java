@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Admin implements Serializable {
-    private String adminid;
+    private String id;
 
-    private String adminnane;
+    private String username;
 
     private String departid;
 
@@ -20,32 +20,30 @@ public class Admin implements Serializable {
 
     private String email;
 
-    private String salt;
-
     private Date date;
-
-    private String roleid;
 
     private Short status;
 
     private String note;
 
+    private String password;
+
     private static final long serialVersionUID = 1L;
 
-    public String getAdminid() {
-        return adminid;
+    public String getId() {
+        return id;
     }
 
-    public void setAdminid(String adminid) {
-        this.adminid = adminid == null ? null : adminid.trim();
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
-    public String getAdminnane() {
-        return adminnane;
+    public String getUsername() {
+        return username;
     }
 
-    public void setAdminnane(String adminnane) {
-        this.adminnane = adminnane == null ? null : adminnane.trim();
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
     }
 
     public String getDepartid() {
@@ -96,28 +94,12 @@ public class Admin implements Serializable {
         this.email = email == null ? null : email.trim();
     }
 
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt == null ? null : salt.trim();
-    }
-
     public Date getDate() {
         return date;
     }
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public String getRoleid() {
-        return roleid;
-    }
-
-    public void setRoleid(String roleid) {
-        this.roleid = roleid == null ? null : roleid.trim();
     }
 
     public Short getStatus() {
@@ -134,5 +116,13 @@ public class Admin implements Serializable {
 
     public void setNote(String note) {
         this.note = note == null ? null : note.trim();
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
     }
 }

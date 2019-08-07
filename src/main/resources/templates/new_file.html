@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta http-equiv="Access-Control-Allow-Origin" content="*">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="lib/layui-v2.5.4/css/layui.css" media="all">
+		
+
+	</head>
+	<body>
+		<div class="layui-form login-form" lay-filter="selectX">
+			<div class="layui-form-item">
+				<label class="layui-form-label text-r">单位部门：</label>
+				<div class="layui-inline">
+					<select class="select" name="ComID" url="../api/ComID?id=1" child="DepartID" childDataPath="../api/DepartID" selectValue="100000000"
+					 promtion="请选择单位">
+						<option value="">请选择单位</option>
+					</select>
+				</div>
+				<div class="layui-inline">
+					<select class="select" name="DepartID" selectValue="100000001" promtion="请选择部门">
+						<option value="">请选择部门</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<script src="lib/layui-v2.5.4/layui.js" charset="utf-8"></script>
+		<!-- <script src="js/layarea.js" type="text/javascript" charset="utf-8"></script> -->
+		<script src="js/jquery-1.11.3.min.js" charset="utf-8"></script>
+		<!-- <script src="cascadeSelect.js" type="text/javascript" charset="utf-8"></script> -->
+		<!-- <script src="js/cascadeSelect.js" type="text/javascript" charset="utf-8"></script> -->
+		<script type="text/javascript">
+			layui.config({
+					base: "js/",
+					version: '1.0'
+				}).extend({
+					// index: 'index' ,//主入口模块
+					layuimini: "layuimini",
+					cascadeSelect: 'cascadeSelect'
+				}).use(['form', 'laydate', 'cascadeSelect', 'layuimini'], function() {
+						var $ = layui.$,
+							admin = layui.admin,
+							element = layui.element,
+							layer = layui.layer,
+							laydate = layui.laydate,
+							cascadeSelect = layui.cascadeSelect,
+							form = layui.form;  
+						form.render(null, 'selectX');
+
+						cascadeSelect.init('ComID', false);
+
+				})
+		</script>
+	</body>
+</html>

@@ -1,17 +1,36 @@
 package com.henu.exam.dao;
 
 import com.henu.exam.bean.DepartAdmin;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface DepartAdminMapper {
-    int deleteByPrimaryKey(String departadminid);
 
-    int insert(DepartAdmin record);
+    /**
+     * 删除账户
+     * @param username
+     * @return
+     */
+    public DepartAdmin deleteByUsername(String username);
 
-    int insertSelective(DepartAdmin record);
+    /**
+     * 添加账户
+     * @param departAdmin
+     * @return
+     */
+    int insert(DepartAdmin departAdmin);
 
-    DepartAdmin selectByPrimaryKey(String departadminid);
+    /**
+     * 根据用户名查找账户
+     * @param username
+     * @return
+     */
+    DepartAdmin getUserByUserName(String username);
 
-    int updateByPrimaryKeySelective(DepartAdmin record);
-
-    int updateByPrimaryKey(DepartAdmin record);
+    /**
+     * 更新账户
+     * @param departAdmin
+     * @return
+     */
+    int updateUser(DepartAdmin departAdmin);
 }

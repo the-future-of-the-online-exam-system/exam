@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>layui</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="../lib/layui-v2.5.4/css/layui.css" media="all">
+		<link rel="stylesheet" href="../css/public.css" media="all">
+	</head>
+	<body>
+		<div class="layuimini-container">
+			<div class="layuimini-main">
+
+				<fieldset class="layui-elem-field layuimini-search">
+					<legend>搜索信息</legend>
+					<div style="margin: 10px 10px 10px 10px">
+						<form class="layui-form layui-form-pane" action="">
+							<div class="layui-form-item">
+								<div class="layui-inline">
+									<label class="layui-form-label">学员编号</label>
+									<div class="layui-input-inline">
+										<input type="text" name="TraineeID" autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-inline">
+									<label class="layui-form-label">学员姓名</label>
+									<div class="layui-input-inline">
+										<input type="text" name="TraineeName" autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-inline">
+									<label class="layui-form-label">所在部门编号</label>
+									<div class="layui-input-inline">
+										<input type="text" name="DepartID" autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-inline">
+									<label class="layui-form-label">所在单位编号</label>
+									<div class="layui-input-inline">
+										<input type="text" name="ComID" autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-inline">
+									<a class="layui-btn" lay-submit="" lay-filter="data-search-btn">搜索</a>
+								</div>
+							</div>
+						</form>
+					</div>
+				</fieldset>
+
+				<table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+				<script type="text/html" id="currentTableBar">
+					<a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+        </script>
+			</div>
+		</div>
+		<script src="../lib/layui-v2.5.4/layui.js" charset="utf-8"></script>
+		<script>
+			layui.use(['form', 'table', 'laydate', 'layer'], function () { 
+				var $ = layui.jquery,
+					form = layui.form,
+					layer = layui.layer,
+					table = layui.table,
+					laydate = layui.laydate;
+
+				table.render({ 
+					elem: '#currentTableId',
+					url: '../api/table-Trainee.json',
+					toolbar: '#defaultToolbar',
+					title: '学员信息表',
+					cols: [[
+						{type: "numbers", width: 50, fixed: "left"},
+						{field: 'TraineeID', width: 100, title: '学员编号', sort: true, align: "center"},
+						{field: 'TraineeName', width: 100, title: '学员姓名', sort: true, align: "center"},
+						{field: 'DepartID', width: 130, title: '所在部门编号', sort: true, align: "center"},
+						{field: 'ComID', width: 130, title: '所在单位编号', sort: true, align: "center"},
+						{field: 'Phone', width: 130, title: '电话', sort: true, align: "center"},
+						{field: 'Title', width: 100, title: '职称', sort: true, align: "center"},
+						{field: 'Position', width: 100, title: '职务', sort: true, align: "center"},
+						{field: 'E-Mail', width: 100, title: '邮箱', sort: true, align: "center"},
+						{field: 'Date', width: 100, title: '注册时间', sort: true, align: "center"},
+						{field: 'Status', width: 100, title: '用户状态', sort: true, align: "center",templet: function(d) {
+									if (d.Status==0) {
+										return '<span style="color: green;">正常</span>'
+
+									} else if(d.Status==1){
+										return '<span style="color: red;">禁止</span>'
+
+									}
+									return;
+								}},
+						{field: 'ROLEID', width: 100, title: '角色ID', sort: true, align: "center",templet: function(d) {
+									if (d.ROLEID==0) {
+										return '<span style="color: green;">学员</span>'
+
+									} else if(d.ROLEID==1){
+										return '<span style="color: gold;">部门管理员</span>'
+
+									}
+									return;
+								}},
+						{field: 'Note', width: 100, title: '备注', sort: true, align: "center"},
+						{title: '操作', minWidth: 30, templet: '#currentTableBar', fixed: "right", align: "center"}
+					]],
+					limits: [10, 15, 20, 25, 50, 100],
+					limit: 15,
+					page: true,
+					done: function(res, curr, count){
+						//如果是异步请求数据方式，res即为你接口返回的信息。
+						//如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+						console.log(res);
+						//得到当前页码
+						console.log(curr); 
+						//得到数据总量
+						console.log(count);
+					}
+				});
+				
+				// 监听搜索操作
+				form.on('submit(data-search-btn)', function (data) {
+					var result = JSON.stringify(data.field);
+					layer.alert(result, {
+						title: '最终的搜索信息'
+					});
+
+					//执行搜索重载
+					table.reload('currentTableId', {
+						page: {
+							curr: 1
+						}
+						, where: {
+							searchParams: result
+						}
+					}, 'data');
+
+					return false;
+				});
+				
+				
+				table.on('tool(currentTableFilter)', function(obj) { 
+					var data = obj.data;
+					if (obj.event === 'detail') {
+						layer.msg('ID：' + data.id + ' 的查看操作');
+					} else if (obj.event === 'delete') {
+						layer.confirm('真的删除行么？', function(index) {
+							$.ajax({
+								url: "",
+								type: "POST",
+								data: {
+									TraineeID: data.TraineeID,
+									TraineeName: data.TraineeName
+								},
+								success: function(msg) {
+									var json = JSON.parse(msg);
+									var returnCode = json.returnCode;
+									if (returnCode == 200) {
+										//删除这一行
+										obj.del();
+										//关闭弹框
+										layer.close(index);
+										layer.msg("删除成功", {icon: 6});
+									} else {
+										layer.msg("删除失败", {icon: 5});
+									}
+								}
+							});
+							return false;
+						});
+
+					} else if (obj.event === 'edit') {
+						form.val("formTest", {
+							"newTraineeID": data.TraineeID,
+							"newTraineeName": data.TraineeName,
+							"newDepartID": data.DepartID,
+							"newComID": data.ComID,
+							"newTitle": data.Title,
+							"newPosition": data.Position,
+							"newPhone": data.Phone,
+							"newEMAIL": data.EMAIL,
+							"newStatus": data.Status,
+							"newROLEID": data.ROLEID,
+							"newNote": data.Note
+						});
+						layer.open({
+							//layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+							type: 1,
+							title: "修改学员信息表",
+							area: ['340px', '500px'],
+							content: $("#popUpdateTest") //引用的弹出层的页面层的方式加载修改界面表单
+						});
+						//动态向表传递赋值可以参看文章进行修改界面的更新前数据的显示，当然也是异步请求的要数据的修改数据的获取
+						setFormValue(obj, data);
+					}
+				});
+				
+				
+				//监听弹出框表单提交，massage是修改界面的表单数据'submit(demo11),是修改按钮的绑定
+				function setFormValue(obj, data) {
+					form.on('submit(demo11)', function(massage) {
+						$.ajax({
+							url: '',
+							type: 'POST',
+							data: {
+								oldTraineeID:data.TraineeID,
+								newTraineeID:massage.field.newTraineeID,
+								newTraineeName:massage.field.newTraineeName,
+								newDepartID:massage.field.newDepartID,
+								newComID:massage.field.newComID,
+								newTitle:massage.field.newTitle,
+								newPosition:massage.field.newPosition,
+								newPhone:massage.field.newPhone,
+								newEMAIL:massage.field.newEMAIL,
+								newROLEID:massage.field.newROLEID,
+								newStatus:massage.field.newStatus,
+								newNote:massage.field.newNote
+							},
+							success: function(msg) {
+								var returnCode = msg.returnCode; //取得返回数据（Sting类型的字符串）的信息进行取值判断
+								if (returnCode == 200) {
+									layer.closeAll('loading');
+									layer.load(2);
+									layer.msg("修改成功", {icon: 6});
+									
+									setTimeout(function() {
+										obj.update({
+											newTraineeID:massage.field.newTraineeID,
+											newTraineeName:massage.field.newTraineeName,
+											newDepartID:massage.field.newDepartID,
+											newComID:massage.field.newComID,
+											newTitle:massage.field.newTitle,
+											newPosition:massage.field.newPosition,
+											newPhone:massage.field.newPhone,
+											newEMAIL:massage.field.newEMAIL,
+											newROLEID:massage.field.newROLEID,
+											newStatus:massage.field.newStatus,
+											newNote:massage.field.newNote
+										}); //修改成功修改表格数据不进行跳转
+										layer.closeAll(); //关闭所有的弹出层
+									}, 1000);
+									// 加载层 - 风格
+								} else {
+									layer.msg("修改失败", {icon: 5});
+								}
+							}
+						})//ajax
+					})
+				
+				}//setFormValue
+				
+			});
+		</script>
+
+		<!-- 这里是弹出层的表单信息
+		表单的id用于表单的选择，style是在本页隐藏，只有点击编辑才会弹出 -->
+		<div class="layui-row" id="popUpdateTest" style="display:none;">
+			<!-- <div class="layui-col-md10"> -->
+			<form class="layui-form layui-from-pane layuimini-form" action="" style="margin-top:20px" lay-filter="formTest">
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label required">学员编号</label>
+						<div class="layui-input-inline">
+							<input type="text" name="newTraineeID" lay-verify="required" lay-reqtext="学员编号不能为空" placeholder="请输入学员编号" value=""
+							 class="layui-input">
+						</div>
+					</div>
+					<div class="layui-inline">
+						<label class="layui-form-label required">学员姓名</label>
+						<div class="layui-input-inline">
+							<input type="text" name="newTraineeName" lay-verify="required" lay-reqtext="学员姓名不能为空" placeholder="请输入学员姓名"
+							 value="" class="layui-input">
+						</div>
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label required">单位编号</label>
+						<div class="layui-input-inline">
+							<select class="select" name="newComID" url="api/ComID" child="newDepartID" childDataPath="api/DepartID"
+							 selectValue="100000000" promtion="请选择单位" lay-verify="required" lay-reqtext="所在单位编号不能为空" placeholder="请输入所在单位编号"
+							 <option value="">请选择单位</option>
+							</select>
+						</div>
+					</div>
+					<div class="layui-inline">
+						<label class="layui-form-label required">部门编号</label>
+						<div class="layui-input-inline">
+							<select class="select" name="newDepartID" url="" selectValue="200000000"
+							 promtion="请选择部门" lay-verify="required" lay-reqtext="所在部门编号不能为空" placeholder="请输入所在部门编号">
+								<option value="">请选择部门</option>
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label ">职称</label>
+						<div class="layui-input-inline">
+							<input type="text" name="newTitle" placeholder="请输入职称" value="" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-inline">
+						<label class="layui-form-label ">职务</label>
+						<div class="layui-input-inline">
+							<input type="text" name="newPosition" placeholder="请输入职务" value="" class="layui-input">
+						</div>
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label">电话</label>
+						<div class="layui-input-inline">
+							<input type="number" name="newPhone" lay-verify="phone" placeholder="请输入电话号码" value="" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-inline">
+						<label class="layui-form-label">邮箱</label>
+						<div class="layui-input-inline">
+							<input type="email" name="newEMAIL"  lay-verify="email" placeholder="请输入邮箱" value="" class="layui-input">
+						</div>
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<div class="layui-inline"><label class="layui-form-label">用户状态</label>
+						<div class="layui-input-inline">
+							<!-- <input type="text" name="newStatus" value="" class="layui-input" autocomplete="off"> -->
+							<select class="select" name="newStatus" lay-verify="required" lay-reqtext="用户状态不能为空" placeholder="请输入用户状态">
+								<option value="0">正常</option>
+								<option value="1">禁止</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-inline"><label class="layui-form-label">角色ID</label>
+						<div class="layui-input-inline">
+							<!-- <input type="text" name="newStatus" value="" class="layui-input" autocomplete="off"> -->
+							<select class="select" name="newROLEID" lay-verify="required" lay-reqtext="角色ID不能为空" placeholder="请输入角色ID">
+								<option value="0">学员</option>
+								<option value="1">部门管理员</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="layui-form-item layui-form-text">
+					<div class="layui-inline">
+						<label class="layui-form-label">备注信息</label>
+						<div class="layui-input-block">
+							<textarea name="newNote" class="layui-textarea" placeholder="请输入备注信息" cols="85"></textarea>
+						</div>
+					</div>
+				</div>
+				<div class="layui-form-item" style="margin-top:40px">
+					<div class="layui-input-block">
+						<button class="layui-btn  layui-btn-submit " lay-submit="" lay-filter="demo11">确认修改</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</body>
+</html>

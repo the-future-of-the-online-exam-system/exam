@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>基本资料</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="../lib/layui-v2.5.4/css/layui.css" media="all">
+		<link rel="stylesheet" href="../css/public.css" media="all">
+		<style>
+			.layui-form-item .layui-input-company {width: auto;padding-right: 10px;line-height: 38px;}
+    </style>
+	</head>
+	<body>
+		<div class="layuimini-container">
+			<div class="layuimini-main">
+				<form class="layui-form layuimini-form layui-form-pane"> 
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label required">学员编号</label>
+							<div class="layui-input-inline">
+								<input type="text" name="TraineeID" lay-verify="required" lay-reqtext="学员编号不能为空" placeholder="请输入学员编号" value=""
+								 class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label required">学员姓名</label>
+							<div class="layui-input-inline">
+								<input type="text" name="TraineeName" lay-verify="required" lay-reqtext="学员姓名不能为空" placeholder="请输入学员姓名" value=""
+								 class="layui-input">
+							</div>
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label required">单位编号</label>
+							<div class="layui-input-inline">
+								<select class="select" name="ComID" url="api/ComID" child="DepartID" childDataPath="api/DepartID1"
+								 selectValue="100000000" promtion="请选择单位" lay-verify="required" lay-reqtext="所在单位编号不能为空" placeholder="请输入所在单位编号"
+									<option value="">请选择单位</option>
+								</select>
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label required">部门编号</label>
+							<div class="layui-input-inline">
+								<select class="select" name="DepartID" url="/Admin/Area/GetListByParent?id=86" 
+								 selectValue="200000000" promtion="请选择部门" lay-verify="required" lay-reqtext="所在部门编号不能为空" placeholder="请输入所在部门编号">
+									<option value="">请选择部门</option>
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label ">职称</label>
+							<div class="layui-input-inline">
+								<input type="text" name="Title" placeholder="请输入职称" value="" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label ">职务</label>
+							<div class="layui-input-inline">
+								<input type="text" name="Position" placeholder="请输入职务" value="" class="layui-input">
+							</div>
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label">电话</label>
+							<div class="layui-input-inline">
+								<input type="number" name="Phone" lay-verify="phone" placeholder="请输入电话号码" value="" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">邮箱</label>
+							<div class="layui-input-inline">
+								<input type="email" name="EMAIL"  lay-verify="email"placeholder="请输入邮箱" value="" class="layui-input">
+							</div>
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label">注册时间</label>
+							<div class="layui-input-inline">
+								<input type="text" name="Date" value="" class="layui-input" autocomplete="off" readonly="readonly">
+							</div>
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<div class="layui-inline"><label class="layui-form-label">用户状态</label>
+							<div class="layui-input-inline">
+								<input type="text" name="Status" value="" class="layui-input" autocomplete="off" readonly="readonly">
+							</div>
+						</div>
+						<div class="layui-inline"><label class="layui-form-label">角色ID</label>
+							<div class="layui-input-inline">
+								<input type="text" name="ROLEID" value="" class="layui-input" autocomplete="off" readonly="readonly">
+							</div>
+						</div>
+						 <!-- <div class="layui-inline">
+							<label class="layui-form-label">角色ID</label>
+							<div class="layui-input-inline">
+								<select name="newROLEID" lay-verify="required" lay-search="">
+								  <option value="">直接选择或搜索选择</option>
+								  <option value="0">学员</option>
+								  <option value="1">部门管理员</option>
+								</select>
+							</div>
+						</div> -->
+					</div>
+					
+					<div class="layui-form-item">
+						<!-- <div class="layui-inline"> -->
+						<div class="layui-input-block">
+							<button class="layui-btn" lay-submit lay-filter="saveBtn">确认保存</button>
+						</div>
+						<!-- </div> -->
+					</div>
+
+				</form>
+			</div>
+		</div>
+		<script src="../lib/layui-v2.5.4/layui.js" charset="utf-8"></script>
+		<script src="../lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
+		<script src="../lib/layui-v2.5.4/layui.js" charset="utf-8"></script>
+		<!-- <script src="../js/layarea.js" type="text/javascript" charset="utf-8"></script> -->
+		<script>
+			layui.config({
+				// base: '/ExamOnline/' ,//静态资源所在路径
+				base: './js/'
+				// version: '1.0'
+			});
+			layui.extend({
+				// layarea: 'layarea',
+				cascadeSelect: 'cascadeSelect'
+			});
+			
+			layui.use(['index', 'layer','form', 'laydate', 'cascadeSelect','layarea'], function(){
+				var $ = layui.$,
+					admin = layui.admin,
+					element = layui.element,
+					layer = layui.layer,
+					laydate = layui.laydate,
+					cascadeSelect = layui.cascadeSelect,
+					// layarea = layui.layarea,
+					form = layui.form;
+					
+				// layarea.render({
+				// 	elem: '#area-picker',
+				// 	// data: {
+				// 	//     province: '广东省',
+				// 	//     city: '深圳市',
+				// 	//     county: '龙岗区',
+				// 	// },
+				// 	change: function (res) {
+				// 		//选择结果
+				// 		console.log(res);
+				// 	}
+				// });
+				// form.render(null, 'component-form-group');
+				
+				cascadeSelect.init('ComID', false);
+
+				//监听提交
+				form.on('submit(saveBtn)', function(data) {
+					layer.alert(JSON.stringify(data.field), {
+						title: '最终的提交信息'
+					})
+
+				});
+				
+			});
+		</script>
+		
+<!-- 		
+		<div class="layui-form-item">
+			<div class="layui-inline">
+				<label class="layui-form-label required">学员编号</label>
+				<div class="layui-input-inline">
+					<input type="text" name="newTraineeID" lay-verify="required" lay-reqtext="学员编号不能为空" placeholder="请输入学员编号" value=""
+					 class="layui-input">
+				</div>
+			</div>
+			<div class="layui-inline">
+				<label class="layui-form-label required">学员姓名</label>
+				<div class="layui-input-inline">
+					<input type="text" name="newTraineeName" lay-verify="required" lay-reqtext="学员姓名不能为空" placeholder="请输入学员姓名"
+					 value="" class="layui-input">
+				</div>
+			</div>
+		</div>
+		
+		<div class="layui-form-item">
+			<div class="layui-inline">
+				<label class="layui-form-label required">单位编号</label>
+				<div class="layui-input-inline">
+					<select class="select" name="newComID" url="api/ComID" child="newDepartID" childDataPath="api/DepartID"
+					 selectValue="100000000" promtion="请选择单位" lay-verify="required" lay-reqtext="所在单位编号不能为空" placeholder="请输入所在单位编号"
+					 <option value="">请选择单位</option>
+					</select>
+				</div>
+			</div>
+			<div class="layui-inline">
+				<label class="layui-form-label required">部门编号</label>
+				<div class="layui-input-inline">
+					<select class="select" name="newDepartID" url="" selectValue="200000000"
+					 promtion="请选择部门" lay-verify="required" lay-reqtext="所在部门编号不能为空" placeholder="请输入所在部门编号">
+						<option value="">请选择部门</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		
+		<div class="layui-form-item">
+			<div class="layui-inline">
+				<label class="layui-form-label ">职称</label>
+				<div class="layui-input-inline">
+					<input type="text" name="newTitle" placeholder="请输入职称" value="" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-inline">
+				<label class="layui-form-label ">职务</label>
+				<div class="layui-input-inline">
+					<input type="text" name="newPosition" placeholder="请输入职务" value="" class="layui-input">
+				</div>
+			</div>
+		</div>
+		
+		<div class="layui-form-item">
+			<div class="layui-inline">
+				<label class="layui-form-label">电话</label>
+				<div class="layui-input-inline">
+					<input type="number" name="newPhone" placeholder="请输入电话号码" value="" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-inline">
+				<label class="layui-form-label">邮箱</label>
+				<div class="layui-input-inline">
+					<input type="email" name="newEMAIL" placeholder="请输入邮箱" value="" class="layui-input">
+				</div>
+			</div>
+		</div>
+		
+		<div class="layui-form-item">
+			<div class="layui-inline"><label class="layui-form-label">用户状态</label>
+				<div class="layui-input-inline">
+						<select class="select" name="newStatus" lay-verify="required" lay-reqtext="用户状态不能为空" placeholder="请输入用户状态">
+						<option value="0">正常</option>
+						<option value="1">禁止</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<div class="layui-inline"><label class="layui-form-label">角色ID</label>
+				<div class="layui-input-inline">
+					<select class="select" name="newROLEID" lay-verify="required" lay-reqtext="角色ID不能为空" placeholder="请输入角色ID">
+						<option value="0">学员</option>
+						<option value="1">部门管理员</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="layui-form-item layui-form-text">
+			<div class="layui-inline">
+				<label class="layui-form-label">备注信息</label>
+				<div class="layui-input-block">
+					<textarea name="newNote" class="layui-textarea" placeholder="请输入备注信息" cols="85"></textarea>
+				</div>
+			</div>
+		</div> -->
+
+		
+	</body>
+</html>

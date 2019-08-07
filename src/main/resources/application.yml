@@ -20,12 +20,21 @@ spring:
       enabled: true
       max-file-size: 100MB
       max-request-size: 200MB
-
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+    mode: HTML5
+    encoding: UTF-8
+  mvc:
+      static-path-pattern: /static/**
 #  redis:
 #    host: 127.0.0.1
 #    port: 6379
 
 
-#mybatis:
-#  mapper-locations: classpath*:/mapper/*Dao.xml
-#  type-aliases-package: com.springboot.disk.dao
+mybatis:
+  mapper-locations: classpath*:/mapper/*Mapper.xml
+  type-aliases-package: com.henu.exam.dao
+server:
+  port: 8081

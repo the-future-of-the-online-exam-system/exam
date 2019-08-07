@@ -1,0 +1,67 @@
+{
+  "clearInfo": {
+    "clearUrl": "api/clear.json"
+  },
+  "homeInfo": {
+    "title": "首页",
+    "icon": "fa fa-home",
+    "href": "page/welcome-1.html?mpi=m-p-i-0"
+  },
+  "logoInfo": {
+    "title": "ExamOnline",
+    "image": "images/logo.png",
+    "href": ""
+  },
+  "menuInfo": {
+    "currency": {
+      "title": "常规管理",
+      "icon": "fa fa-address-book",
+      "child": [
+		{
+		  "title": "参加答题",
+		  "href": "page/exam-paper.html",
+		  "icon": "fa fa-edit",
+		  "target": "_self"
+		},
+		{
+		  "title": "查询成绩",
+		  "href": "page/table-ExamInfo.html",
+		  "icon": "fa fa-file-text",
+		  "target": "_self"
+		},
+		{
+		  "title": "个人信息管理",
+		  "href": "page/user-setting.html",
+		  "icon": "fa fa-user",
+		  "target": "_self"
+		},
+		{
+		  "title": "打印学时证明",
+		  "href": "page/table-ExamCertificate.html",
+		  "icon": "fa fa-graduation-cap",
+		  "target": "_self"
+		},
+        {
+          "title": "系统帮助",
+          "href": "",
+          "icon": "fa fa-gears",
+          "target": "",
+          "child": [
+            {
+              "title": "使用说明",
+              "href": "page/404.html",
+              "icon": "fa fa-question-circle",
+              "target": "_self"
+            },
+            {
+              "title": "关于系统",
+              "href": "page/aboutSystem.html",
+              "icon": "layui-icon layui-icon-about",
+              "target": "_self"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

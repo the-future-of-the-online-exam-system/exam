@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>layui</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="../lib/layui-v2.5.4/css/layui.css" media="all">
+		<link rel="stylesheet" type="text/css" href="../lib/layui-v2.5.4/css/modules/code.css" />
+		<link rel="stylesheet" type="text/css" href="../lib/layui-v2.5.4/css/layui.mobile.css" />
+		<style type="text/css">
+			.toolbar {
+				border: 1px solid #ccc;
+			}
+
+			.text {
+				border: 1px solid #ccc;
+				height: 150px;
+			}
+
+			.layui-form-select dl {
+				/* position: absolute; */
+				top: -160px;
+			}
+
+			.layui-form-pane .layui-input-block {
+				/* margin-left: 116px; */
+			}
+		</style>
+		<!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+	</head>
+	<body>
+		<div class="layuimini-container">
+			<div class="layuimini-main" style="margin: 20px;">
+				<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+					<legend>试题生成</legend>
+					<span>第<b>xxx</b>题</span>
+					<span>总计<b>xxx</b>分</span>
+				</fieldset>
+
+				<form class="layui-form layui-form-pane" action="">
+					<div class="layui-form-item layui-form-text">
+						<label class="layui-form-label">考题编号</label>
+						<div class="layui-input-block">
+							<input type="text" name="QuestionID" lay-verify="" autocomplete="off" placeholder="请输入考题编号" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item layui-form-text">
+						<label class="layui-form-label">考题题库ID</label>
+						<div class="layui-input-block">
+							<input type="text" name="QuestionsDbID" lay-verify="" autocomplete="off" placeholder="请输入考题题库ID" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">试题类型</label>
+						<div class="layui-input-inline ">
+							<select name="QuestionsType" lay-filter="" width="200px">
+								<!-- <option value="" selected=""></option> -->
+								<option value="0">单选题</option>
+								<option value="1">多选题</option>
+								<option value="2">填空题</option>
+								<option value="3">判断题</option>
+							</select>
+						</div>
+						<label class="layui-form-label">考题分值</label>
+						<div class="layui-input-inline ">
+							<input type="number" name="QuestionsScore" lay-verify="" autocomplete="off" placeholder="请输入考题分值" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item layui-form-text">
+						<label class="layui-form-label">考题题干</label>
+						<div class="layui-input-block">
+							<div id="editor1-toolbar" class="toolbar">
+							</div>
+							<div id="editor1" class="text" name="QuestionsContent">
+								<p>请输入考题题干...</p>
+							</div>
+							<textarea id="textarea1" name="QuestionsContent" style="width: 100%; height: 150px; resize: none;display: none;"
+							 class="layui-input" placeholder="请输入考题题干"></textarea>
+						</div>
+					</div>
+					<br>
+					<div class="layui-form-item layui-form-text">
+						<label class="layui-form-label">考题答案</label>
+						<div class="layui-input-block">
+							<div id="editor2-toolbar" class="toolbar">
+							</div>
+							<div id="editor2" class="text" name="Questionskey">
+								<p>请输入考题答案...</p>
+							</div>
+							<textarea id="textarea2" name="Questionskey" style="width: 100%; height: 75px; resize: none;display: none;"
+							 class="layui-input" placeholder="请输入考题答案"></textarea>
+						</div>
+					</div>
+					<div class="layui-form-item layui-form-text">
+						<label class="layui-form-label">考题解析</label>
+						<div class="layui-input-block">
+							<div id="editor3-toolbar" class="toolbar">
+							</div>
+							<div id="editor3" class="text" name="Questionsresolve">
+								<p>请输入考题解析...</p>
+							</div>
+							<textarea id="textarea3" name="Questionsresolve" style="width: 100%; height: 150px; resize: none;display: none;"
+							 class="layui-input" placeholder="请输入考题解析"></textarea>
+						</div>
+					</div>
+					<div class="layui-form-item layui-form-text">
+						<label class="layui-form-label">考题创建者</label>
+						<div class="layui-input-block">
+							<input type="text" name="Creater" lay-verify="" autocomplete="off" placeholder="请输入考题创建者" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item layui-form-text">
+						<label class="layui-form-label">考题创建日期</label>
+						<div class="layui-input-block">
+							<input type="text" id="date" name="CreateDate" lay-verify="" autocomplete="off" placeholder="请输入考题创建日期" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item layui-form-text">
+						<label class="layui-form-label">考题详细信息</label>
+						<div class="layui-input-block">
+							<div id="editor4-toolbar" class="toolbar">
+							</div>
+							<div id="editor4" class="text" name="QuestionsData">
+								<p>请输入考题详细信息...</p>
+							</div>
+							<textarea id="textarea4" name="QuestionsData" style="width: 100%; height: 150px; resize: none;display: none;"
+							 class="layui-input" placeholder="请输入考题详细信息"></textarea>
+						</div>
+					</div>
+					<div class="layui-form-item layui-form-text">
+						<label class="layui-form-label">备注</label>
+						<div class="layui-input-block">
+							<input type="text" name="Note" lay-verify="" autocomplete="off" placeholder="请输入备注" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-input-block">
+							<button type="" class="layui-btn layui-btn-normal" lay-submit="" lay-filter="demo1" >上一题</button>
+							<button class="layui-btn" lay-submit="" lay-filter="demo1">保存</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+							<button type="" class="layui-btn layui-btn-normal" lay-submit="" lay-filter="demo1">下一题</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+
+		<script src="../lib/layui-v2.5.4/layui.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../lib/wangEditor-3.1.1/wangEditor.js"></script>
+		<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+		<script>
+			layui.use(['form', 'layedit', 'laydate'], function() { 
+				var form = layui.form,
+					layer = layui.layer,
+					layedit = layui.layedit,
+					laydate = layui.laydate,
+					$ = layui.jquery;
+
+				//日期
+				laydate.render({
+					elem: '#date'
+				});
+
+				//监听提交
+				form.on('submit(demo1)', function(data) {
+					// console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
+					// console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+					var json1 = editor1.txt.getJSON() // 获取 JSON 格式的内容
+					var jsonStr1 = JSON.stringify(json1)
+					var json2 = editor2.txt.getJSON() // 获取 JSON 格式的内容
+					var jsonStr2 = JSON.stringify(json2)
+					var json3 = editor3.txt.getJSON() // 获取 JSON 格式的内容
+					var jsonStr3 = JSON.stringify(json3)
+					layer.alert(JSON.stringify(data.field), {
+						title: '最终的提交信息'
+					})
+
+					// JSON.stringify(data.field)+jsonStr1+jsonStr2+jsonStr3
+					// 注意：富编辑器的json不是在容器form中的 而且json格式,上面是字符拼接弹出
+					return false;
+				});
+
+
+				// 富编辑器
+				var E = window.wangEditor;
+				var editor1 = new E('#editor1-toolbar', '#editor1');
+				var editor2 = new E('#editor2-toolbar', '#editor2');
+				var editor3 = new E('#editor3-toolbar', '#editor3');
+				var editor4 = new E('#editor4-toolbar', '#editor4');
+				editor1.customConfig.uploadImgServer = "../api/upload.json";
+				editor2.customConfig.uploadImgServer = "../api/upload.json";
+				editor3.customConfig.uploadImgServer = "../api/upload.json";
+				editor4.customConfig.uploadImgServer = "../api/upload.json";
+				editor1.customConfig.uploadFileName = 'image';
+				editor2.customConfig.uploadFileName = 'image';
+				editor3.customConfig.uploadFileName = 'image';
+				editor4.customConfig.uploadFileName = 'image';
+				editor1.customConfig.pasteFilterStyle = false;
+				editor2.customConfig.pasteFilterStyle = false;
+				editor3.customConfig.pasteFilterStyle = false;
+				editor4.customConfig.pasteFilterStyle = false;
+				editor1.customConfig.uploadImgMaxLength = 5;
+				editor2.customConfig.uploadImgMaxLength = 5;
+				editor3.customConfig.uploadImgMaxLength = 5;
+				editor4.customConfig.uploadImgMaxLength = 5;
+				//第一次点击清空富文本编辑器
+				var e1 = true;
+				editor1.customConfig.onfocus = function() {
+					if (e1) {
+						editor1.txt.clear();
+						e1 = false;
+					}
+				}
+				var e2 = true;
+				editor2.customConfig.onfocus = function() {
+					if (e2) {
+						editor2.txt.clear();
+						e2 = false;
+					}
+				}
+				var e3 = true;
+				editor3.customConfig.onfocus = function() {
+					if (e3) {
+						editor3.txt.clear();
+						e3 = false;
+					}
+				}
+				var e4 = true;
+				editor4.customConfig.onfocus = function() {
+					if (e4) {
+						editor4.txt.clear();
+						e4 = false;
+					}
+				}
+				//将富文本编辑器的内容给textarea
+				var $textarea1 = $('#textarea1');
+				var $textarea2 = $('#textarea2');
+				var $textarea3 = $('#textarea3');
+				var $textarea4 = $('#textarea4');
+				editor1.customConfig.onchange = function(html) {
+					// 监控变化，同步更新到 textarea1
+					$textarea1.val(html);
+				}
+				editor2.customConfig.onchange = function(html) {
+					// 监控变化，同步更新到 textarea2
+					$textarea2.val(html);
+				}
+				editor3.customConfig.onchange = function(html) {
+					// 监控变化，同步更新到 textarea3
+					$textarea3.val(html);
+				}
+				editor4.customConfig.onchange = function(html) {
+					// 监控变化，同步更新到 textarea4
+					$textarea4.val(html);
+				}
+				editor1.create();
+				editor2.create();
+				editor3.create();
+				editor4.create();
+				// 初始化 textarea 的值
+				$textarea1.val(editor1.txt.html());
+				$textarea2.val(editor2.txt.html());
+				$textarea3.val(editor3.txt.html());
+				$textarea4.val(editor4.txt.html());
+
+
+			});
+		</script>
+	</body>
+</html>

@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Trainee implements Serializable {
-    private String traineeid;
+    private String id;
 
-    private String traineename;
+    private String username;
 
     private String departid;
 
@@ -20,30 +20,30 @@ public class Trainee implements Serializable {
 
     private String email;
 
-    private String salt;
-
     private Date date;
 
     private Short status;
 
     private String note;
 
+    private String password;
+
     private static final long serialVersionUID = 1L;
 
-    public String getTraineeid() {
-        return traineeid;
+    public String getId() {
+        return id;
     }
 
-    public void setTraineeid(String traineeid) {
-        this.traineeid = traineeid == null ? null : traineeid.trim();
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
-    public String getTraineename() {
-        return traineename;
+    public String getUsername() {
+        return username;
     }
 
-    public void setTraineename(String traineename) {
-        this.traineename = traineename == null ? null : traineename.trim();
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
     }
 
     public String getDepartid() {
@@ -94,14 +94,6 @@ public class Trainee implements Serializable {
         this.email = email == null ? null : email.trim();
     }
 
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt == null ? null : salt.trim();
-    }
-
     public Date getDate() {
         return date;
     }
@@ -124,5 +116,13 @@ public class Trainee implements Serializable {
 
     public void setNote(String note) {
         this.note = note == null ? null : note.trim();
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
     }
 }
