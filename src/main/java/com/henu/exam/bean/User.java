@@ -4,10 +4,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 public class User implements UserDetails {
@@ -15,9 +13,9 @@ public class User implements UserDetails {
 
     private String username;
 
-    private String departid;
+    private String depart;
 
-    private String comid;
+    private String com;
 
     private String phone;
 
@@ -27,9 +25,9 @@ public class User implements UserDetails {
 
     private String email;
 
-    private Date date;
+    private String date;
 
-    private Short status;
+    private int status;
 
     private String note;
 
@@ -61,20 +59,20 @@ public class User implements UserDetails {
         this.username = username == null ? null : username.trim();
     }
 
-    public String getDepartid() {
-        return departid;
+    public String getDepart() {
+        return depart;
     }
 
-    public void setDepartid(String departid) {
-        this.departid = departid == null ? null : departid.trim();
+    public void setDepart(String depart) {
+        this.depart = depart;
     }
 
-    public String getComid() {
-        return comid;
+    public String getCom() {
+        return com;
     }
 
-    public void setComid(String comid) {
-        this.comid = comid == null ? null : comid.trim();
+    public void setCom(String com) {
+        this.com = com;
     }
 
     public String getPhone() {
@@ -109,19 +107,19 @@ public class User implements UserDetails {
         this.email = email == null ? null : email.trim();
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public Short getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(Short status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

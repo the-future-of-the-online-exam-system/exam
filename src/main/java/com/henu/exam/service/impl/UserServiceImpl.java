@@ -3,11 +3,14 @@ package com.henu.exam.service.impl;
 import com.henu.exam.bean.User;
 import com.henu.exam.dao.UserMapper;
 import com.henu.exam.service.UserService;
+import com.henu.exam.util.BaseUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Service
 @Slf4j
@@ -21,8 +24,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int insert(User user) {
-        return 0;
+    public int register(User user) {
+
+        user.setId(BaseUtil.getUid());
+        Date date=new java.util.Date();//取得当前时间
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        user.setDate(sdf.format(date));
+        user.setStatus(1);
+
+        return userMapper.insert(user);
     }
 
     @Override
@@ -33,8 +43,8 @@ public class UserServiceImpl implements UserService {
 
         HttpSession session = request.getSession();
 
-        User user = userMapper.getUserByUserName(username, userType);
-
+        User user = userMapper.login(username, userType);
+        log.info(user.getUsername());
         if(user==null){
 
             log.info("用户名不存在");

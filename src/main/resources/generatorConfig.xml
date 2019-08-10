@@ -50,14 +50,13 @@
         </javaClientGenerator>
 
 
-        <table tableName="role" domainObjectName="Role"
+        <table tableName="role_user" domainObjectName="RoleUser"
                enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false" >
             <property name="useActualColumnNames" value="false"/>
         </table>
 
 
-        <!-- 列出要生成代码的所有表，这里配置的是不生成Example文件 -->
         <!--
 
         <table tableName="company" domainObjectName="Company"

@@ -27,6 +27,14 @@
         LEFT JOIN ROLE r on sru.roleid=r.id
         where username= #{username}
   </select>
+  <select id="login" parameterType="java.lang.String" resultType="com.henu.exam.bean.User">
+    select u.*
+        ,r.name
+        from USER u
+        LEFT JOIN ROLE_USER sru on u.id= sru.userid
+        LEFT JOIN ROLE r on sru.roleid=r.id
+        where username= #{username}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from USER
     where ID = #{id,jdbcType=VARCHAR}

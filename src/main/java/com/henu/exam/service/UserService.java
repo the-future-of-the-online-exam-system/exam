@@ -8,7 +8,7 @@ public interface UserService {
 
     int deleteByUsername(String username);
 
-    int insert(User user);
+    int register(User user);
 
     int login(HttpServletRequest request);
 

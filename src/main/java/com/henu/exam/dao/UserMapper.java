@@ -12,6 +12,8 @@ public interface UserMapper {
      */
     public User deleteByUsername(String username);
 
+    public User selectByUserName(String username);
+
     /**
      * 添加账户
      * @param user
@@ -24,7 +26,7 @@ public interface UserMapper {
      * @param username
      * @return
      */
-    User getUserByUserName(String username, String userType);
+    User login(String username, String userType);
 
     /**
      * 更新账户

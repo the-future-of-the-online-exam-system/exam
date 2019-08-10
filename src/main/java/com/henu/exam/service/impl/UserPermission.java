@@ -18,6 +18,7 @@ public class UserPermission implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         User user = userMapper.selectByUserName(username);
+
         if (user != null) {
             return user;
         } else {

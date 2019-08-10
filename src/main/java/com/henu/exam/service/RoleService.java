@@ -1,8 +1,9 @@
-package com.henu.exam.dao;
+package com.henu.exam.service;
 
 import com.henu.exam.bean.Role;
 
-public interface RoleMapper {
+public interface RoleService {
+
     int deleteByPrimaryKey(String id);
 
     int insert(Role role);
