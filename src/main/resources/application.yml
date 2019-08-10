@@ -14,7 +14,14 @@ spring:
       minEvictableIdleTimeMillis: 3600000
       removeAbandoned: true
       removeAbandonedTimeout: 40
-
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    jedis:
+      pool:
+        max-active: 300
+        min-idle: 10
+        max-wait: 60000
   servlet:
     multipart:
       enabled: true
@@ -36,5 +43,7 @@ spring:
 mybatis:
   mapper-locations: classpath*:/mapper/*Mapper.xml
   type-aliases-package: com.henu.exam.dao
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 server:
-  port: 8081
+  port: 8080

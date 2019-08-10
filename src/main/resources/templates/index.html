@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <title>ExamOnline学员页面</title>
@@ -10,10 +10,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="icon" href="images/favicon.ico">
-    <link rel="stylesheet" href="lib/layui-v2.5.4/css/layui.css" media="all">
-    <link rel="stylesheet" href="css/layuimini.css" media="all">
-    <link rel="stylesheet" href="lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
+    <link rel="icon" th:href="@{/static/style/images/favicon.ico}">
+    <link rel="stylesheet" th:href="@{/static/style/lib/layui-v2.5.4/css/layui.css}" media="all">
+    <link rel="stylesheet" th:href="@{/static/style/css/layuimini.css}" media="all">
+    <link rel="stylesheet" th:href="@{/static/style/lib/font-awesome-4.7.0/css/font-awesome.min.css}" media="all">
     <!--[if lt IE 9]>
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
@@ -87,10 +87,10 @@
 </div>
 
 
-<script src="lib/layui-v2.5.4/layui.js" charset="utf-8"></script>
+<script th:src="@{/static/style/lib/layui-v2.5.4/layui.js}" charset="utf-8"></script>
 <script>
     layui.config({
-        base: "js/"
+        base: "/static/style/js/"
     }).extend({
         layuimini: "layuimini"
     });
@@ -99,7 +99,7 @@
             element = layui.element,
             layer = layui.layer;
 
-        layuimini.init('api/init.json');
+        layuimini.init('/static/api/init.json');
 
         $('.login-out').on("click", function () {
             layer.msg('退出登录成功', function () {

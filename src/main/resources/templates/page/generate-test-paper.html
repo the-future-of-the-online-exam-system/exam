@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="utf-8">
 		<title>layui</title>
 		<meta name="renderer" content="webkit">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<link rel="stylesheet" href="../lib/layui-v2.5.4/css/layui.css" media="all">
-		<link rel="stylesheet" type="text/css" href="../lib/layui-v2.5.4/css/modules/code.css" />
-		<link rel="stylesheet" type="text/css" href="../lib/layui-v2.5.4/css/layui.mobile.css" />
+		<link rel="stylesheet" th:href="@{/static/style/lib/layui-v2.5.4/css/layui.css}" media="all">
+		<link rel="stylesheet" type="text/css" th:href="@{/static/style/lib/layui-v2.5.4/css/modules/code.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/static/style/lib/layui-v2.5.4/css/layui.mobile.css}" />
 		<style type="text/css">
 			.toolbar {
 				border: 1px solid #ccc;
@@ -148,8 +148,8 @@
 		</div>
 
 
-		<script src="../lib/layui-v2.5.4/layui.js" charset="utf-8"></script>
-		<script type="text/javascript" src="../lib/wangEditor-3.1.1/wangEditor.js"></script>
+		<script th:src="@{/static/style/lib/layui-v2.5.4/layui.js}" charset="utf-8"></script>
+		<script type="text/javascript" th:src="@{/static/style/lib/wangEditor-3.1.1/wangEditor.js}"></script>
 		<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 		<script>
 			layui.use(['form', 'layedit', 'laydate'], function() { 
@@ -190,10 +190,10 @@
 				var editor2 = new E('#editor2-toolbar', '#editor2');
 				var editor3 = new E('#editor3-toolbar', '#editor3');
 				var editor4 = new E('#editor4-toolbar', '#editor4');
-				editor1.customConfig.uploadImgServer = "../api/upload.json";
-				editor2.customConfig.uploadImgServer = "../api/upload.json";
-				editor3.customConfig.uploadImgServer = "../api/upload.json";
-				editor4.customConfig.uploadImgServer = "../api/upload.json";
+				editor1.customConfig.uploadImgServer = "/static/api/upload.json";
+				editor2.customConfig.uploadImgServer = "/static/api/upload.json";
+				editor3.customConfig.uploadImgServer = "/static/api/upload.json";
+				editor4.customConfig.uploadImgServer = "/static/api/upload.json";
 				editor1.customConfig.uploadFileName = 'image';
 				editor2.customConfig.uploadFileName = 'image';
 				editor3.customConfig.uploadFileName = 'image';

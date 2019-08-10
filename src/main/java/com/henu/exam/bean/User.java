@@ -1,9 +1,16 @@
 package com.henu.exam.bean;
 
-import java.io.Serializable;
-import java.util.Date;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-public class Trainee implements Serializable {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+
+public class User implements UserDetails {
     private String id;
 
     private String username;
@@ -22,15 +29,21 @@ public class Trainee implements Serializable {
 
     private Date date;
 
-    private int status;
+    private Short status;
 
     private String note;
 
     private String password;
 
-    private int role;
+    private List<Role> roles;
 
-    private static final long serialVersionUID = 1L;
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 
     public String getId() {
         return id;
@@ -104,11 +117,11 @@ public class Trainee implements Serializable {
         this.date = date;
     }
 
-    public int getStatus() {
+    public Short getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Short status) {
         this.status = status;
     }
 
@@ -128,11 +141,37 @@ public class Trainee implements Serializable {
         this.password = password == null ? null : password.trim();
     }
 
-    public int getRole() {
-        return role;
+    @Override
+    public boolean isAccountNonExpired() {
+
+        return true;
     }
 
-    public void setRole(int role) {
-        this.role = role;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+
+        List<GrantedAuthority> auths = new ArrayList<>();
+        List<Role> roles = getRoles();
+        for(Role role : roles)
+        {
+            auths.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        return auths;
+    }
+
 }

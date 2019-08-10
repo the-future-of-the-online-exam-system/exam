@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title>试卷生成</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" th:href="@{/static/style/lib/layui-v2.5.4/css/layui.css}" media="all">
+		<link rel="stylesheet" th:href="@{/static/style/css/public.css}" media="all">
+		<style>
+			.layui-form-item .layui-input-company {width: auto;padding-right: 10px;line-height: 38px;}
+    </style>
+	</head>
+	<body>
+		<div class="layuimini-container">
+			<div class="layuimini-main">
+				<form class="layui-form layuimini-form layui-form-pane">
+
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label required">试卷编号</label>
+							<div class="layui-input-inline">
+								<input type="text" name="PaperID" lay-verify="required" lay-reqtext="试卷编号不能为空" placeholder="请输入试卷编号" value=""
+								 class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label required">试卷名称</label>
+							<div class="layui-input-inline">
+								<input type="text" name="PaperName" lay-verify="required" lay-reqtext="试卷名称不能为空" placeholder="请输入试卷名称" value=""
+								 class="layui-input">
+							</div>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label required">试卷状态</label>
+							<div class="layui-input-inline">							
+								<select name="PapeStatus" lay-filter="">
+									<option value="1">正常可用</option>
+									<option value="0">不可用</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label required">考试开始时间</label>
+							<div class="layui-input-inline">
+								<input type="text" id="ExamBegDate" name="ExamBegDate" lay-verify="required" lay-reqtext="考试开始时间不能为空"
+								 placeholder="请输入考试开始时间" value="" class="layui-input">
+							</div>
+
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label required">考试结束时间</label>
+							<div class="layui-input-inline">
+								<input type="text" id="ExamEndDate" name="ExamEndDate" lay-verify="required" lay-reqtext="考试结束时间不能为空"
+								 placeholder="请输入考试结束时间" value="" class="layui-input">
+							</div>
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label required">总分</label>
+							<div class="layui-input-inline">
+								<input type="number" name="TotalScore" placeholder="请输入总分" value="" class="layui-input" lay-verify="required">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label required">总题目数</label>
+							<div class="layui-input-inline">
+								<input type="number" name="TotalExamNum" placeholder="请输入总题目数" value="" class="layui-input" lay-verify="required">
+							</div>
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label required">单选题题目数</label>
+							<div class="layui-input-inline">
+								<input type="number" name="TotalQ0Num" placeholder="请输入单选题总题目数" value="" class="layui-input" lay-verify="required">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label required">多选题题目数</label>
+							<div class="layui-input-inline">
+								<input type="number" name="TotalQ1Num" placeholder="请输入多选题总题目数" value="" class="layui-input" lay-verify="required">
+							</div>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label required">填空题题目数</label>
+							<div class="layui-input-inline">
+								<input type="number" name="TotalQ2Num" placeholder="请输入填空题总题目数" value="" class="layui-input" lay-verify="required">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label required">判断题题目数</label>
+							<div class="layui-input-inline">
+								<input type="number" name="TotalQ3Num" placeholder="请输入判断题总题目数" value="" class="layui-input" lay-verify="required">
+							</div>
+						</div>
+					</div>
+					<div class="layui-form-item layui-form-text">
+						<div class="layui-inline">
+							<label class="layui-form-label">试卷说明</label>
+							<div class="layui-input-block">
+								<textarea name="PaperRemark" class="layui-textarea" placeholder="请输入试卷说明" cols="85"></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label">考题题库ID</label>
+							<div class="layui-input-inline">
+								<input type="text" name="QuestionsDbID" lay-verify="required" lay-reqtext="考题题库ID不能为空" placeholder="请输入考题题库ID"
+								 value="" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">试卷发布日期</label>
+							<div class="layui-input-inline">
+								<input type="text" id="PaperPoster" name="PaperPoster" placeholder="请输入试卷发布日期" value="" class="layui-input">
+							</div>
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<div class="layui-inline"><label class="layui-form-label">试卷显示模式</label>
+							<div class="layui-input-inline">
+								<select name="PaperShowMode" lay-filter="">
+									<option value="0">整个试卷显示</option>
+									<option value="1">单题显示</option>
+								</select>
+							</div>
+						</div>
+						<div class="layui-inline"><label class="layui-form-label">试卷创建者</label>
+							<div class="layui-input-inline">
+								<input type="text" name="PaperCreator" value="" class="layui-input" autocomplete="off">
+							</div>
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<!-- <div class="layui-inline"> -->
+						<div class="layui-input-block">
+							<button class="layui-btn" lay-submit lay-filter="saveBtn">开始录入试题</button>
+						</div>
+						<!-- </div> -->
+					</div>
+
+				</form>
+			</div>
+		</div>
+		<script th:src="@{/static/style/lib/layui-v2.5.4/layui.js}" charset="utf-8"></script>
+		<script>
+			layui.use(['form', 'layer', 'laydate'], function() {
+				var form = layui.form,
+					layer = layui.layer,
+					laydate = layui.laydate,
+					$ = layui.jquery;
+
+				laydate.render({
+					elem: '#ExamBegDate',
+					type: 'datetime'
+				});
+				laydate.render({
+					elem: '#ExamEndDate',
+					type: 'datetime'
+				});
+				laydate.render({
+					elem: '#PaperPoster'
+				})
+				//监听提交
+				form.on('submit(saveBtn)', function(data) {
+					layer.alert(JSON.stringify(data.field), {
+						title: '最终的提交信息'
+					})
+					var dataInfo = data.field;
+					$.ajax({
+						url: "createPaper.do",
+						type: "POST",
+						data: {
+							id:dataInfo.PaperID, name:dataInfo.PaperName, status:dataInfo.PaperStatus, begdate:dataInfo.ExamBegDate,
+							enddate:dataInfo.ExamEndDate, totalscore:dataInfo.TotalExamNum, remark:dataInfo.PaperRemark,
+							qurstiondbid:dataInfo.QuestionsDbID, poster:dataInfo.PaperPoster, showmode:dataInfo.PaperShowMode,
+							creator:dataInfo.PaperCreator, totalq0num:dataInfo.TotalQ0Num,totalq1num:dataInfo.TotalQ1Num,
+							totalq2num:dataInfo.TotalQ2Num,totalq3num:dataInfo.TotalQ3Num,
+						},
+						success: function(msg) {
+							alert(msg)
+							if (msg==1) {
+								layer.msg("提交成功", {icon: 6});
+								window.location.href="addQuestion";
+							} else {
+								layer.msg("提交失败", {icon: 5});
+							}
+						}
+					});
+					return false;
+				});
+
+			});
+		</script>
+	</body>
+</html>

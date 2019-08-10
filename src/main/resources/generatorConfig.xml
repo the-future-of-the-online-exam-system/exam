@@ -49,21 +49,14 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="admin" domainObjectName="Admin"
+
+        <table tableName="role" domainObjectName="Role"
                enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false" >
             <property name="useActualColumnNames" value="false"/>
         </table>
-        <table tableName="trainee" domainObjectName="Trainee"
-               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" selectByExampleQueryId="false" >
-            <property name="useActualColumnNames" value="false"/>
-        </table>
-        <table tableName="departadmin" domainObjectName="DepartAdmin"
-               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" selectByExampleQueryId="false" >
-            <property name="useActualColumnNames" value="false"/>
-        </table>
+
+
         <!-- 列出要生成代码的所有表，这里配置的是不生成Example文件 -->
         <!--
 

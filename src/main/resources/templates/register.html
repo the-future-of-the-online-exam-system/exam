@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>ExamOnline用户注册</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta http-equiv="Access-Control-Allow-Origin" content="*">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" th:href="@{/static/style/lib/layui-v2.5.4/css/layui.css}" media="all">
+		<link rel="stylesheet" th:href="@{/static/style/lib/font-awesome-4.7.0/css/font-awesome.min.css}" media="all">
+		<link rel="stylesheet" th:href="@{/static/style/css/public.css}" media="all">
+		<!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+		<style>
+			html, body {width: 100%;height: 100%;overflow: hidden}
+        body {background: #009688;}
+        body:after {content:'';background-repeat:no-repeat;background-size:cover;-webkit-filter:blur(3px);-moz-filter:blur(3px);-o-filter:blur(3px);-ms-filter:blur(3px);filter:blur(3px);position:absolute;top:0;left:0;right:0;bottom:0;z-index:-1;}
+        .layui-container {width: 100%;height: 100%;overflow: hidden}
+        .admin-login-background {width:360px;height:300px;position:absolute;left:50%;top:40%;margin-left:-180px;margin-top:-250px;}
+        .logo-title {text-align:center;letter-spacing:2px;padding:14px 0;}
+        .logo-title h1 {color:#009688;font-size:25px;font-weight:bold;}
+        .login-form {background-color:#fff;border:1px solid #fff;border-radius:3px;padding:14px 20px;box-shadow:0 0 8px #eeeeee;}
+        .login-form .layui-form-item {position:relative;}
+        .login-form .layui-form-item label {position:absolute;left:1px;top:1px;width:38px;line-height:36px;text-align:center;color:#d2d2d2;}
+        .login-form .layui-form-item input {padding-left:36px;}
+        .captcha {width:60%;display:inline-block;}
+        .captcha-img {display:inline-block;width:34%;float:right;}
+        .captcha-img img {height:34px;border:1px solid #e6e6e6;height:36px;width:100%;}
+		.layui-form-select {display: contents;}
+    </style>
+	</head>
+	<body>
+		<div class="layui-container">
+			<div class="admin-login-background">
+				<div class="layui-form login-form">
+					<form class="layui-form layuimini-form layui-form-pane" action="">
+						<div class="layui-form-item logo-title">
+							<h1>ExamOnline注册</h1>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-icon layui-icon-username required" for="TraineeName"></label>
+							<input type="text" name="TraineeName" lay-verify="required|account" placeholder="用户名" autocomplete="off" class="layui-input" value="">
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-icon layui-icon-password required" for="newpwd1"></label>
+							<input type="password" id="newpwd1" name="Password" lay-verify="required|password" placeholder="密码" autocomplete="off" class="layui-input" value="">
+						</div>
+						<div class="layui-form-item" style="margin-bottom: 0px;">
+							<label class="layui-icon layui-icon-password required" for="newpwd2"></label>
+							<input type="password" id="newpwd2" name="rePassword" lay-verify="required|password" placeholder="请确认密码" autocomplete="off" class="layui-input" value="">
+						</div>
+						<div class="layui-form-item">
+							<p id="msg_pwd" style="height: 1px;"></p>
+						</div>
+						<div class="layui-form-item">
+							<label class="fa fa-sitemap required" for="username"></label>
+							<select lay-filter="ComID" id="ComID" class="select" name="ComID" lay-verify="required" lay-reqtext="所在单位编号不能为空" placeholder="请输入所在单位编号">
+								<option value="">请选择所在单位</option>
+								<option th:each="company : ${companyList}" th:value="${company.name}" th:text="${company.name}"></option>
+
+							</select>
+						</div>
+						<div class="layui-form-item">
+							<label class="fa fa-group required" for="username"></label>
+							<select id="DepartID" class="select" name="DepartID" lay-verify="required" lay-reqtext="所在部门编号不能为空" placeholder="请输入所在部门编号" lay-search="">
+								<option value="">请选择部门</option>
+							</select>
+						</div>
+						<div class="layui-form-item">
+							<label class="fa fa-newspaper-o" for="username"></label>
+							<input type="text" name="Title" lay-verify="" placeholder="请输入职称" autocomplete="off" class="layui-input" value="">
+						</div>
+						<div class="layui-form-item">
+							<label class="fa fa-briefcase" for="username"></label>
+							<input type="text" name="Position" lay-verify="" placeholder="请输入职务" autocomplete="off" class="layui-input" value="">
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-icon layui-icon-cellphone" for="username"></label>
+							<input type="number" name="Phone" lay-verify="phone" placeholder="请输入电话" autocomplete="off" class="layui-input" value="">
+						</div>
+						<div class="layui-form-item">
+							<label class="fa fa-envelope-o" for="username"></label>
+							<input type="email" name="EMAIL" lay-verify="email" placeholder="请输入邮箱" autocomplete="off" class="layui-input" value="">
+						</div>
+						<div class="layui-form-item">
+							<button class="layui-btn layui-btn-fluid" id="btn_sub" lay-filter="register" >注 册</button>
+						</div>
+
+					</form>
+				</div>
+			</div>
+		</div>
+		<script th:src="@{/static/style/lib/jquery-3.4.1/jquery-3.4.1.min.js}" charset="utf-8"></script>
+		<script th:src="@{/static/style/lib/layui-v2.5.4/layui.js}" charset="utf-8"></script>
+		<script th:src="@{/static/style/lib/jq-module/jquery.particleground.min.js}" charset="utf-8"></script>
+		<!-- <script src="../js/layarea.js" type="text/javascript" charset="utf-8"></script> -->
+		<script>
+
+			layui.use(['layer', 'form'], function() {
+				var form = layui.form,
+					layer = layui.layer,
+					$ = layui.$;
+				// 登录过期的时候，跳出ifram框架
+				if (top.location != self.location) top.location = self.location;
+
+				// 粒子线条背景
+				$(document).ready(function() {
+					$('.layui-container').particleground({
+						dotColor: '#5cbdaa',
+						lineColor: '#5cbdaa'
+					});
+				});
+				
+									$('#newpwd1').on('input propertychange', function() {
+					checkModiPwdstat();
+				});
+				
+				$('#newpwd2').on('input propertychange', function() {
+					checkModiPwdstat();
+				});
+				$("#btn_sub").on("click", function(e) {
+					if (!flag) {
+						if (!checkModiPwdstat()) {
+							e.preventDefault();
+							e.stopPropagation();
+							return;
+						}
+					}
+					modpwd();
+				});
+
+				function checkModiPwdstat() {
+					flag = true;
+					//input propertychange即实时监控键盘输入包括粘贴
+					var pwd = $.trim($("#newpwd1").val());
+					//获取this，即ipwd的val()值，trim函数的作用是去除空格
+					var rpwd = $.trim($("#newpwd2").val());
+				
+					if (pwd == "" || rpwd == "") {
+						//若都为空，则提示密码不能为空，为了用户体验（在界面上用required同时做了处理）
+						$("#msg_pwd").html("<font color='red' style='margin-left:30px;'>密码不能为空</font>");
+						$("#btn_sub").attr("disabled", true); //使按钮无法点击
+						return false;
+					} else {
+						if (pwd == rpwd) { //相同则提示密码匹配
+							$("#msg_pwd").html("<font color='green' style='margin-left:30px;'>两次密码匹配通过</font>");
+							$("#0-+------------------11").attr("disabled", false); //使按钮无法点击
+							return true;
+						} else { //不相同则提示密码匹配
+							$("#msg_pwd").html("<font color='red' style='margin-left:30px;'>两次密码不匹配</font>");
+							$("#btn_sub").attr("disabled", true);
+							return false;
+						}
+					}
+				};
+				form.on('select(ComID)', function (data) {
+
+					var comId = data.value;
+					$.ajax({
+						url: "http://localhost:8080/common/getDepartment.do?comName="+comId,
+						type: "GET",
+						data: {},
+						success: function(msg) {
+
+							$("#DepartID").empty();
+							for(var obj in msg){
+
+								var str="<option value="+"'"+msg[obj].name+"'"+">"+msg[obj].name+"</option>";
+								$("#DepartID").append(str);
+							}
+							form.render("select");
+						},
+						error:function() {
+							layer.msg("系统错误，请稍后再试!", {icon: 5});
+						}
+					});
+				});
+				// 进行登录操作
+				form.on('submit(register)', function(data) {
+					data = data.field;
+					if (data.TraineeName == '') {
+						layer.msg('用户名不能为空');
+						return false;
+					}
+					if (data.Password == '') {
+						layer.msg('密码不能为空');
+						return false;
+					}
+					if (data.rePassword == '') {
+						layer.msg('确认密码不能为空');
+						return false;
+					}
+					if (data.ComID == '') {
+						layer.msg('单位不能为空');
+						return false;
+					}
+					if (data.DepartID == '') {
+						layer.msg('部门不能为空');
+
+						return false;
+					}
+					
+
+					$.ajax({
+						url: "http://localhost:8080/common/register.do",
+						type: "POST",
+						data: {
+							username: data.TraineeName,
+							password: data.Password,
+							comid:data.ComID,
+							departid:data.DepartID,
+							title:data.Title,
+							position:data.Position,
+							phone:data.Phone,
+							email:data.EMAIL
+						},
+						success: function(msg) {
+							var json = JSON.parse(msg);
+							var returnCode = json.returnCode;
+							if (returnCode == 200) {
+								layer.msg("注册成功", {icon: 6});
+								window.location.href = 'login';
+							} else {
+								layer.msg("注册失败", {icon: 5});
+							}
+						},
+						error:function(msg) {
+							var json = JSON.parse(msg);
+							var returnCode = json.returnCode;
+							if (returnCode != 200) {
+								layer.msg("注册失败", {icon: 5});
+							}
+						}
+					});
+
+					return false;
+				});
+			});
+		</script>
+	</body>
+</html>

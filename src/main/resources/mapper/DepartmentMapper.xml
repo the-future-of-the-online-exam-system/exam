@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.henu.exam.dao.DepartmentMapper">
+  <resultMap id="BaseResultMap" type="com.henu.exam.bean.Department">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="PERSONS" jdbcType="DECIMAL" property="persons" />
+    <result column="NOTE" jdbcType="VARCHAR" property="note" />
+    <result column="COMNAME" jdbcType="VARCHAR" property="comname" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, NAME, PERSONS, NOTE, COMNAME
+  </sql>
+  <select id="selectByComName" parameterType="java.lang.String" resultType="com.henu.exam.bean.Department">
+    select * from DEPARTMENT where COMNAME = #{comName,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from DEPARTMENT
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.henu.exam.bean.Department">
+    insert into DEPARTMENT (ID, NAME, PERSONS, 
+      NOTE, COMNAME)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{persons,jdbcType=DECIMAL}, 
+      #{note,jdbcType=VARCHAR}, #{comname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.henu.exam.bean.Department">
+    insert into DEPARTMENT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="persons != null">
+        PERSONS,
+      </if>
+      <if test="note != null">
+        NOTE,
+      </if>
+      <if test="comname != null">
+        COMNAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="persons != null">
+        #{persons,jdbcType=DECIMAL},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="comname != null">
+        #{comname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.henu.exam.bean.Department">
+    update DEPARTMENT
+    <set>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="persons != null">
+        PERSONS = #{persons,jdbcType=DECIMAL},
+      </if>
+      <if test="note != null">
+        NOTE = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="comname != null">
+        COMNAME = #{comname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.henu.exam.bean.Department">
+    update DEPARTMENT
+    set NAME = #{name,jdbcType=VARCHAR},
+      PERSONS = #{persons,jdbcType=DECIMAL},
+      NOTE = #{note,jdbcType=VARCHAR},
+      COMNAME = #{comname,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

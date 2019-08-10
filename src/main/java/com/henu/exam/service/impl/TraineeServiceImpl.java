@@ -1,18 +1,20 @@
 package com.henu.exam.service.impl;
 
 import com.henu.exam.bean.Trainee;
-import com.henu.exam.dao.TraineeMapper;
 import com.henu.exam.service.TraineeService;
+import com.henu.exam.util.BaseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Service
 public class TraineeServiceImpl implements TraineeService {
 
-    @Autowired
-    private TraineeMapper traineeMapper;
+//    @Autowired(required = false)
+//    private TraineeMapper traineeMapper;
 
     @Override
     public int deleteByUsername(String username) {
@@ -21,6 +23,14 @@ public class TraineeServiceImpl implements TraineeService {
 
     @Override
     public int insert(Trainee trainee) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        trainee.setId(BaseUtil.getUid());
+        trainee.setStatus(1);
+        trainee.setRole(0);
+        trainee.setDate(new Date());
+
         return 0;
     }
 
@@ -30,7 +40,9 @@ public class TraineeServiceImpl implements TraineeService {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        Trainee trainee = traineeMapper.getUserByUserName(username);
+
+//        Trainee trainee = traineeMapper.getUserByUserName(username);
+        Trainee trainee = null;
 
         if(trainee==null){
 

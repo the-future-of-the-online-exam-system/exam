@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.henu.exam.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.henu.exam.bean.User">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="USERNAME" jdbcType="VARCHAR" property="username" />
+    <result column="DEPARTID" jdbcType="VARCHAR" property="departid" />
+    <result column="COMID" jdbcType="VARCHAR" property="comid" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+    <result column="TITLE" jdbcType="VARCHAR" property="title" />
+    <result column="POSITION" jdbcType="VARCHAR" property="position" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="DATE" jdbcType="TIMESTAMP" property="date" />
+    <result column="STATUS" jdbcType="DECIMAL" property="status" />
+    <result column="NOTE" jdbcType="VARCHAR" property="note" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, USERNAME, DEPARTID, COMID, PHONE, TITLE, POSITION, EMAIL, DATE, STATUS, NOTE, 
+    PASSWORD
+  </sql>
+  <select id="selectByUserName" parameterType="java.lang.String" resultType="com.henu.exam.bean.User">
+    select u.*
+        ,r.name
+        from USER u
+        LEFT JOIN ROLE_USER sru on u.id= sru.userid
+        LEFT JOIN ROLE r on sru.roleid=r.id
+        where username= #{username}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from USER
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.henu.exam.bean.User">
+    insert into USER (ID, USERNAME, DEPARTID, 
+      COMID, PHONE, TITLE, 
+      POSITION, EMAIL, DATE, 
+      STATUS, NOTE, PASSWORD
+      )
+    values (#{id,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{departid,jdbcType=VARCHAR}, 
+      #{comid,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{position,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=DECIMAL}, #{note,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.henu.exam.bean.User">
+    insert into USER
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="username != null">
+        USERNAME,
+      </if>
+      <if test="departid != null">
+        DEPARTID,
+      </if>
+      <if test="comid != null">
+        COMID,
+      </if>
+      <if test="phone != null">
+        PHONE,
+      </if>
+      <if test="title != null">
+        TITLE,
+      </if>
+      <if test="position != null">
+        POSITION,
+      </if>
+      <if test="email != null">
+        EMAIL,
+      </if>
+      <if test="date != null">
+        DATE,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="note != null">
+        NOTE,
+      </if>
+      <if test="password != null">
+        PASSWORD,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="departid != null">
+        #{departid,jdbcType=VARCHAR},
+      </if>
+      <if test="comid != null">
+        #{comid,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.henu.exam.bean.User">
+    update USER
+    <set>
+      <if test="username != null">
+        USERNAME = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="departid != null">
+        DEPARTID = #{departid,jdbcType=VARCHAR},
+      </if>
+      <if test="comid != null">
+        COMID = #{comid,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        POSITION = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        DATE = #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="note != null">
+        NOTE = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.henu.exam.bean.User">
+    update USER
+    set USERNAME = #{username,jdbcType=VARCHAR},
+      DEPARTID = #{departid,jdbcType=VARCHAR},
+      COMID = #{comid,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      TITLE = #{title,jdbcType=VARCHAR},
+      POSITION = #{position,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      DATE = #{date,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=DECIMAL},
+      NOTE = #{note,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

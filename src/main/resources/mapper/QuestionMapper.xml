@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.henu.exam.dao.QuestionMapper">
+  <resultMap id="BaseResultMap" type="com.henu.exam.bean.Question">
+    <id column="QUESTIONSDBID" jdbcType="VARCHAR" property="questionsdbid" />
+    <result column="QUESTIONDBNAME" jdbcType="VARCHAR" property="questiondbname" />
+    <result column="CREATEDATE" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="POSTER" jdbcType="VARCHAR" property="poster" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    QUESTIONSDBID, QUESTIONDBNAME, CREATEDATE, POSTER
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from QUESTIONSDB
+    where QUESTIONSDBID = #{questionsdbid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from QUESTIONSDB
+    where QUESTIONSDBID = #{questionsdbid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.henu.exam.bean.Question">
+    insert into QUESTIONSDB (QUESTIONSDBID, QUESTIONDBNAME, CREATEDATE, 
+      POSTER)
+    values (#{questionsdbid,jdbcType=VARCHAR}, #{questiondbname,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, 
+      #{poster,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.henu.exam.bean.Question">
+    insert into QUESTIONSDB
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="questionsdbid != null">
+        QUESTIONSDBID,
+      </if>
+      <if test="questiondbname != null">
+        QUESTIONDBNAME,
+      </if>
+      <if test="createdate != null">
+        CREATEDATE,
+      </if>
+      <if test="poster != null">
+        POSTER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="questionsdbid != null">
+        #{questionsdbid,jdbcType=VARCHAR},
+      </if>
+      <if test="questiondbname != null">
+        #{questiondbname,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="poster != null">
+        #{poster,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.henu.exam.bean.Question">
+    update QUESTIONSDB
+    <set>
+      <if test="questiondbname != null">
+        QUESTIONDBNAME = #{questiondbname,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="poster != null">
+        POSTER = #{poster,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where QUESTIONSDBID = #{questionsdbid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.henu.exam.bean.Question">
+    update QUESTIONSDB
+    set QUESTIONDBNAME = #{questiondbname,jdbcType=VARCHAR},
+      CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      POSTER = #{poster,jdbcType=VARCHAR}
+    where QUESTIONSDBID = #{questionsdbid,jdbcType=VARCHAR}
+  </update>
+</mapper>
