@@ -2,41 +2,43 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.henu.exam.dao.CompanyMapper">
   <resultMap id="BaseResultMap" type="com.henu.exam.bean.Company">
-    <id column="ID" jdbcType="VARCHAR" property="id" />
-    <result column="NAME" jdbcType="VARCHAR" property="name" />
-    <result column="COMPERSONS" jdbcType="DECIMAL" property="compersons" />
-    <result column="NOTE" jdbcType="VARCHAR" property="note" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID, NAME, COMPERSONS, NOTE
+    id, name, num, note
   </sql>
-  <select id="selectAll" resultType="com.henu.exam.bean.Company">
-    select * from COMPANY
+  <select id="selectById" parameterType="java.lang.String" resultType="com.henu.exam.bean.Company">
+    select *
+    from company
+    where id = #{id,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from COMPANY
-    where ID = #{id,jdbcType=VARCHAR}
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from company
+    where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.henu.exam.bean.Company">
-    insert into COMPANY (ID, NAME, COMPERSONS, 
-      NOTE)
-    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{compersons,jdbcType=DECIMAL}, 
+    insert into company (id, name, num, 
+      note)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{num,jdbcType=INTEGER}, 
       #{note,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.henu.exam.bean.Company">
-    insert into COMPANY
+    insert into company
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        ID,
+        id,
       </if>
       <if test="name != null">
-        NAME,
+        name,
       </if>
-      <if test="compersons != null">
-        COMPERSONS,
+      <if test="num != null">
+        num,
       </if>
       <if test="note != null">
-        NOTE,
+        note,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -46,34 +48,39 @@
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="compersons != null">
-        #{compersons,jdbcType=DECIMAL},
+      <if test="num != null">
+        #{num,jdbcType=INTEGER},
       </if>
       <if test="note != null">
         #{note,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.henu.exam.bean.Company">
-    update COMPANY
+  <update id="updateByIdSelective" parameterType="com.henu.exam.bean.Company">
+    update company
     <set>
       <if test="name != null">
-        NAME = #{name,jdbcType=VARCHAR},
+        name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="compersons != null">
-        COMPERSONS = #{compersons,jdbcType=DECIMAL},
+      <if test="num != null">
+        num = #{num,jdbcType=INTEGER},
       </if>
       <if test="note != null">
-        NOTE = #{note,jdbcType=VARCHAR},
+        note = #{note,jdbcType=VARCHAR},
       </if>
     </set>
-    where ID = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.henu.exam.bean.Company">
-    update COMPANY
-    set NAME = #{name,jdbcType=VARCHAR},
-      COMPERSONS = #{compersons,jdbcType=DECIMAL},
-      NOTE = #{note,jdbcType=VARCHAR}
-    where ID = #{id,jdbcType=VARCHAR}
+  <update id="updateById" parameterType="com.henu.exam.bean.Company">
+    update company
+    set name = #{name,jdbcType=VARCHAR},
+      num = #{num,jdbcType=INTEGER},
+      note = #{note,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
+
+  <select id="selectAll" resultType="com.henu.exam.bean.Company">
+    select * from COMPANY
+  </select>
+
 </mapper>

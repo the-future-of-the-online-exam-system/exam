@@ -1,7 +1,7 @@
 package com.henu.exam.controller;
 
 import com.henu.exam.bean.Department;
-import com.henu.exam.service.DepartMentService;
+import com.henu.exam.service.DepartmentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,15 +15,15 @@ import java.util.List;
 public class DepartmentController {
 
     @Autowired
-    private DepartMentService departMentServiceImpl;
+    private DepartmentService departmentServiceImpl;
 
     @RequestMapping("/common/getDepartment.do")
     @ResponseBody
     public List<Department> getDepartment(String comName){
 
-        List<Department> departments = departMentServiceImpl.selectByComName(comName);
-
         log.info("获取"+comName+"所属部门列表");
+
+        List<Department> departments = departmentServiceImpl.selectByComName(comName);
 
         return departments;
     }

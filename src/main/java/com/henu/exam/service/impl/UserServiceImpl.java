@@ -3,48 +3,42 @@ package com.henu.exam.service.impl;
 import com.henu.exam.bean.User;
 import com.henu.exam.dao.UserMapper;
 import com.henu.exam.service.UserService;
-import com.henu.exam.util.BaseUtil;
+import com.henu.exam.util.MD5Util;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Service
 @Slf4j
 public class UserServiceImpl implements UserService {
 
+    @Autowired(required = false)
     private UserMapper userMapper;
 
     @Override
-    public int deleteByUsername(String username) {
+    public int deleteByUserId(String id) {
         return 0;
     }
 
     @Override
     public int register(User user) {
 
-        user.setId(BaseUtil.getUid());
-        Date date=new java.util.Date();//取得当前时间
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        user.setDate(sdf.format(date));
-        user.setStatus(1);
-
-        return userMapper.insert(user);
+        return userMapper.register(user);
     }
 
     @Override
     public int login(HttpServletRequest request) {
+
+
+        String userType = request.getParameter("userType");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        String userType = request.getParameter("userType");
-
-        HttpSession session = request.getSession();
-
+        password = MD5Util.encode(password);
         User user = userMapper.login(username, userType);
-        log.info(user.getUsername());
+
         if(user==null){
 
             log.info("用户名不存在");
@@ -52,10 +46,22 @@ public class UserServiceImpl implements UserService {
         } else {
 
             log.info("用户名存在");
+            log.info(userType+" "+username+"登录成功");
             if(user.getPassword().equals(password)) {
 
                 log.info("登陆成功");
-                return 3;
+                HttpSession session = request.getSession();
+                session.setAttribute("loginName", user.getUsername());
+                if("ROLE_USER".equals(userType)){
+                    return 3;
+                } else if("ROLE_DEPARTADMIN".equals(userType)){
+                    return 2;
+                } else if("ROLE_SUPERADMIN".equals(userType)){
+                    return 1;
+                } else {
+                    return 0;
+                }
+
             } else {
 
                 log.info("密码错误");
@@ -67,6 +73,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int updateUser(User user) {
-        return 0;
+
+        return userMapper.updateUser(user);
     }
 }

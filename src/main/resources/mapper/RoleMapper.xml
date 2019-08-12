@@ -2,34 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.henu.exam.dao.RoleMapper">
   <resultMap id="BaseResultMap" type="com.henu.exam.bean.Role">
-    <id column="ID" jdbcType="VARCHAR" property="id" />
-    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID, NAME
+    id, name
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from ROLE
-    where ID = #{id,jdbcType=VARCHAR}
+    from role
+    where id = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from ROLE
-    where ID = #{id,jdbcType=VARCHAR}
+    delete from role
+    where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.henu.exam.bean.Role">
-    insert into ROLE (ID, NAME)
+    insert into role (id, name)
     values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.henu.exam.bean.Role">
-    insert into ROLE
+    insert into role
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        ID,
+        id,
       </if>
       <if test="name != null">
-        NAME,
+        name,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -42,17 +42,17 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.henu.exam.bean.Role">
-    update ROLE
+    update role
     <set>
       <if test="name != null">
-        NAME = #{name,jdbcType=VARCHAR},
+        name = #{name,jdbcType=VARCHAR},
       </if>
     </set>
-    where ID = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.henu.exam.bean.Role">
-    update ROLE
-    set NAME = #{name,jdbcType=VARCHAR}
-    where ID = #{id,jdbcType=VARCHAR}
+    update role
+    set name = #{name,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

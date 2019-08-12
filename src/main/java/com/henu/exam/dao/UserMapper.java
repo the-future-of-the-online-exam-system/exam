@@ -2,16 +2,25 @@ package com.henu.exam.dao;
 
 import com.henu.exam.bean.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface UserMapper {
+
     /**
      * 删除账户
      * @param username
      * @return
      */
-    public User deleteByUsername(String username);
+    public User deleteByUserId(String username);
 
+
+    /**
+     * 权限认证
+     * 暂时
+     * @param username
+     * @return
+     */
     public User selectByUserName(String username);
 
     /**
@@ -19,14 +28,14 @@ public interface UserMapper {
      * @param user
      * @return
      */
-    int insert(User user);
+    int register(User user);
 
     /**
      * 根据用户名查找账户
      * @param username
      * @return
      */
-    User login(String username, String userType);
+    User login(@Param("username") String username, @Param("userType") String userType);
 
     /**
      * 更新账户
@@ -35,5 +44,4 @@ public interface UserMapper {
      */
     int updateUser(User user);
 
-    int updateByPrimaryKey(User record);
 }

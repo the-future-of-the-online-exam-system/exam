@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title>layui</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" th:href="@{/static/style/lib/layui-v2.5.4/css/layui.css}" media="all">
+		<link rel="stylesheet" th:href="@{/static/style/css/public.css}" media="all">
+	</head>
+	<body>
+		<div class="layuimini-container">
+			<div class="layuimini-main">
+
+				<fieldset class="layui-elem-field layuimini-search">
+					<legend>搜索信息</legend>
+					<div style="margin: 10px 10px 10px 10px">
+						<form class="layui-form layui-form-pane" action="">
+							<div class="layui-form-item">
+								<div class="layui-inline">
+									<label class="layui-form-label">公告编号</label>
+									<div class="layui-input-inline">
+										<input type="text" name="NewsID" autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-inline">
+									<label class="layui-form-label">公告标题</label>
+									<div class="layui-input-inline">
+										<input type="text" name="NewsTitle" autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-inline">
+									<label class="layui-form-label">公告内容</label>
+									<div class="layui-input-inline">
+										<input type="text" name="NewsContent" autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-inline">
+									<label class="layui-form-label">发布日期</label>
+									<div class="layui-input-inline">
+										<input type="text" name="NewsDate" id="NewsDate" autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-inline">
+									<a class="layui-btn" lay-submit="" lay-filter="data-search-btn">搜索</a>
+								</div>
+							</div>
+						</form>
+					</div>
+				</fieldset>
+
+				<div class="layui-btn-group">
+					<button class="layui-btn data-add-btn">添加</button>
+					<button class="layui-btn layui-btn-danger data-delete-btn">删除</button>
+				</div>
+				<table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+				<script type="text/html" id="currentTableBar">
+					<a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+        </script>
+			</div>
+		</div>
+		<script th:src="@{/static/style/lib/layui-v2.5.4/layui.js}" charset="utf-8"></script>
+		<script>
+			layui.use(['form', 'table','laydate'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+			laydate = layui.laydate,
+            table = layui.table;
+
+        table.render({
+            elem: '#currentTableId',
+            url: '/static/api/table.json',
+			toolbar: 'default' ,
+			title: '公告信息表',
+            cols: [[
+				{type: "numbers", width: 50, fixed: "left"},
+				{type: "checkbox", width: 50, fixed: "left"},
+                {field: 'ID', width: 100, title: '公告编号', sort: true , align: "center"},
+                {field: 'TITLE', width: 100, title: '公告标题', sort: true, align: "center"},
+                {field: 'CONTENT', minwidth: 150, title: '公告内容', sort: true, align: "center"},
+                {field: 'TOP', width: 130, title: '公告是否置顶', sort: true, align: "center"},
+                {field: 'CREATOR',width: 100, title: '创建者',  sort: true, align: "center"},
+                {field: 'PICTURE', width: 100, title: '图片', sort: true, align: "center"},
+                {field: 'DATE', width: 100, title: '发布日期', sort: true, align: "center"},
+                {field: 'NOTE', width: 100, title: '备注', align: "center"},
+                {title: '操作', width: 150, templet: '#currentTableBar', fixed: "right", align: "center"}
+            ]],
+            limits: [10, 15, 20, 25, 50, 100],
+            limit: 15,
+            page: true
+        });
+		laydate.render({
+			elem:"#NewsDate"
+		})
+		
+        // 监听搜索操作
+        form.on('submit(data-search-btn)', function (data) {
+            var result = JSON.stringify(data.field);
+            layer.alert(result, {
+                title: '最终的搜索信息'
+            });
+
+            //执行搜索重载
+            table.reload('currentTableId', {
+                page: {
+                    curr: 1
+                }
+                , where: {
+                    searchParams: result
+                }
+            }, 'data');
+
+            return false;
+        });
+
+        // 监听添加操作
+        $(".data-add-btn").on("click", function () {
+            layer.msg('添加数据');
+        });
+
+        // 监听删除操作
+        $(".data-delete-btn").on("click", function () {
+            var checkStatus = table.checkStatus('currentTableId')
+                , data = checkStatus.data;
+            layer.alert(JSON.stringify(data));
+        });
+
+        //监听表格复选框选择
+        table.on('checkbox(currentTableFilter)', function (obj) {
+            console.log(obj)
+        });
+
+        table.on('tool(currentTableFilter)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'edit') {
+                layer.alert('编辑行：<br>' + JSON.stringify(data))
+            } else if (obj.event === 'delete') {
+                layer.confirm('真的删除行么', function (index) {
+                    obj.del();
+                    layer.close(index);
+                });
+            }
+        });
+		
+								table.on('tool(currentTableFilter)', function(obj) { 
+				var data = obj.data;
+				if (obj.event === 'detail') {
+					layer.msg('ID：' + data.id + ' 的查看操作');
+				} else if (obj.event === 'del') {
+					layer.confirm('真的删除行么？', function(index) {
+						$.ajax({
+							url: "",
+							type: "POST",
+							data: {
+								PaperID: data.PaperID,
+								PaperName: data.PaperName
+							},
+							success: function(msg) {
+								var json = JSON.parse(msg);
+								var returnCode = json.returnCode;
+								if (returnCode == 200) {
+									//删除这一行
+									obj.del();
+									//关闭弹框
+									layer.close(index);
+									layer.msg("删除成功", {icon: 6});
+								} else {
+									layer.msg("删除失败", {icon: 5});
+								}
+							}
+						});
+						return false;
+					});
+				// } else if (obj.event === 'edit') {
+				// 	//formData = data;
+				// 	if (obj.event === 'del'){
+				// 		layer.confirm('真的删除行么', function(index) {
+				// 			obj.del();
+				// 			layer.close(index);
+				// 		});
+				// 	}
+				} else if (obj.event === 'edit') {
+					form.val("formTest", {
+					  "newPaperName": data.PaperName,
+					  "newPapeStatus": data.PapeStatus,
+					  "newExamBegDate": data.ExamBegDate,
+					  "newExamEndDate": data.ExamEndDate,
+					  "newPaperRemark": data.PaperRemark,
+					  "newPaperShowMode": data.PaperShowMode
+					});
+					layer.open({
+						//layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+						type: 1,
+						title: "修改试卷信息表",
+						area: ['350px', '500px'],
+						content: $("#popUpdateTest") //引用的弹出层的页面层的方式加载修改界面表单
+					});
+					//动态向表传递赋值可以参看文章进行修改界面的更新前数据的显示，当然也是异步请求的要数据的修改数据的获取
+					setFormValue(obj, data);
+				}
+			});
+		//监听弹出框表单提交，massage是修改界面的表单数据'submit(demo11),是修改按钮的绑定
+		function setFormValue(obj, data) {
+			form.on('submit(demo11)', function(massage) {
+				$.ajax({
+					url: '',
+					type: 'POST',
+					data: {
+						oldPaperID:data.PaperID,
+						newPaperName:massage.field.newPaperName,
+						newPapeStatus:massage.field.newPapeStatus,
+						newExamBegDate:massage.field.newExamBegDate,
+						newExamEndDate:massage.field.newExamEndDate,
+						newPaperRemark:massage.field.newPaperRemark,
+						newPaperShowMode:massage.field.newPaperShowMode
+					},
+					success: function(msg) {
+						var returnCode = msg.returnCode; //取得返回数据（Sting类型的字符串）的信息进行取值判断
+						if (returnCode == 200) {
+							layer.closeAll('loading');
+							layer.load(2);
+							layer.msg("修改成功", {icon: 6});
+							
+							setTimeout(function() {
+								obj.update({
+									newPaperName:massage.field.newPaperName,
+									newPapeStatus:massage.field.newPapeStatus,
+									newExamBegDate:massage.field.newExamBegDate,
+									newExamEndDate:massage.field.newExamEndDate,
+									newPaperRemark:massage.field.newPaperRemark,
+									newPaperShowMode:massage.field.newPaperShowMode
+								}); //修改成功修改表格数据不进行跳转
+								layer.closeAll(); //关闭所有的弹出层
+							}, 1000);
+							// 加载层 - 风格
+						} else {
+							layer.msg("修改失败", {icon: 5});
+						}
+					}
+				})
+			})
+		
+		}
+
+    });
+</script>
+		<script>
+
+		</script>
+
+		<!-- 这里是弹出层的表单信息
+		表单的id用于表单的选择，style是在本页隐藏，只有点击编辑才会弹出 -->
+		<div class="layui-row" id="popUpdateTest" style="display:none;">
+			<!-- <div class="layui-col-md10"> -->
+			<form class="layui-form layui-from-pane" action="" style="margin-top:20px" lay-filter="formTest">
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">试卷名称</label>
+					<div class="layui-input-inline">
+						<input type="text" name="newPaperName" autocomplete="off" placeholder="请输入试卷名称" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">试卷状态</label>
+					<div class="layui-input-inline">
+						<select name="newPapeStatus" lay-filter="PapeStatus">
+							<option value="1" selected="">可用</option>
+							<option value="0">不可用</option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">考试开始时间</label>
+					<div class="layui-input-inline">
+						<input type="text" name="newExamBegDate" id="newExamBegDate" placeholder="请输入考试开始时间" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">考试结束时间</label>
+					<div class="layui-input-inline">
+						<input type="text" name="newExamEndDate" id="newExamEndDate" placeholder="请输入考试结束时间" class="layui-input">
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">试卷说明</label>
+					<div class="layui-input-inline">
+						<input type="text" name="newPaperRemark" autocomplete="off" placeholder="请输入试卷说明" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">试卷显示模式</label>
+					<div class="layui-input-inline">
+						<select name="newPaperShowMode" lay-filter="PaperShowMode">
+							<option value="0" selected="">整个试卷显示</option>
+							<option value="1">单题显示</option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-form-item" style="margin-top:40px">
+					<div class="layui-input-block">
+						<button class="layui-btn  layui-btn-submit " lay-submit="" lay-filter="demo11">确认修改</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+				</div>
+			</form>
+			<!-- </div> -->
+		</div>
+	</body>
+</html>

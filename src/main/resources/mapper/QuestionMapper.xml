@@ -2,81 +2,81 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.henu.exam.dao.QuestionMapper">
   <resultMap id="BaseResultMap" type="com.henu.exam.bean.Question">
-    <id column="QUESTIONSDBID" jdbcType="VARCHAR" property="questionsdbid" />
-    <result column="QUESTIONDBNAME" jdbcType="VARCHAR" property="questiondbname" />
-    <result column="CREATEDATE" jdbcType="TIMESTAMP" property="createdate" />
-    <result column="POSTER" jdbcType="VARCHAR" property="poster" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
   </resultMap>
   <sql id="Base_Column_List">
-    QUESTIONSDBID, QUESTIONDBNAME, CREATEDATE, POSTER
+    id, name, create_date, creator
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from QUESTIONSDB
-    where QUESTIONSDBID = #{questionsdbid,jdbcType=VARCHAR}
+    from question_db
+    where id = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from QUESTIONSDB
-    where QUESTIONSDBID = #{questionsdbid,jdbcType=VARCHAR}
+    delete from question_db
+    where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.henu.exam.bean.Question">
-    insert into QUESTIONSDB (QUESTIONSDBID, QUESTIONDBNAME, CREATEDATE, 
-      POSTER)
-    values (#{questionsdbid,jdbcType=VARCHAR}, #{questiondbname,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, 
-      #{poster,jdbcType=VARCHAR})
+    insert into question_db (id, name, create_date, 
+      creator)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{creator,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.henu.exam.bean.Question">
-    insert into QUESTIONSDB
+    insert into question_db
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="questionsdbid != null">
-        QUESTIONSDBID,
+      <if test="id != null">
+        id,
       </if>
-      <if test="questiondbname != null">
-        QUESTIONDBNAME,
+      <if test="name != null">
+        name,
       </if>
-      <if test="createdate != null">
-        CREATEDATE,
+      <if test="createDate != null">
+        create_date,
       </if>
-      <if test="poster != null">
-        POSTER,
+      <if test="creator != null">
+        creator,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="questionsdbid != null">
-        #{questionsdbid,jdbcType=VARCHAR},
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
       </if>
-      <if test="questiondbname != null">
-        #{questiondbname,jdbcType=VARCHAR},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
-      <if test="createdate != null">
-        #{createdate,jdbcType=TIMESTAMP},
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="poster != null">
-        #{poster,jdbcType=VARCHAR},
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.henu.exam.bean.Question">
-    update QUESTIONSDB
+    update question_db
     <set>
-      <if test="questiondbname != null">
-        QUESTIONDBNAME = #{questiondbname,jdbcType=VARCHAR},
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="createdate != null">
-        CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="poster != null">
-        POSTER = #{poster,jdbcType=VARCHAR},
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
       </if>
     </set>
-    where QUESTIONSDBID = #{questionsdbid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.henu.exam.bean.Question">
-    update QUESTIONSDB
-    set QUESTIONDBNAME = #{questiondbname,jdbcType=VARCHAR},
-      CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
-      POSTER = #{poster,jdbcType=VARCHAR}
-    where QUESTIONSDBID = #{questionsdbid,jdbcType=VARCHAR}
+    update question_db
+    set name = #{name,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

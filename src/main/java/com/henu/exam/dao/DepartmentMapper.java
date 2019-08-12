@@ -8,15 +8,17 @@ import java.util.List;
 @Mapper
 public interface DepartmentMapper {
 
-    int deleteByPrimaryKey(String id);
+    int deleteById(String id);
 
-    int insert(Department record);
+    int insert(Department department);
 
-    int insertSelective(Department record);
+    int insertSelective(Department department);
+
+    Department selectById(String id);
+
+    int updateByIdSelective(Department department);
+
+    int updateById(Department department);
 
     List<Department> selectByComName(String comName);
-
-    int updateByPrimaryKeySelective(Department record);
-
-    int updateByPrimaryKey(Department record);
 }

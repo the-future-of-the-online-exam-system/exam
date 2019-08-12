@@ -1,7 +1,7 @@
 package com.henu.exam.service.impl;
 
-import com.henu.exam.bean.PaperInfo;
-import com.henu.exam.dao.PaperInfoMapper;
+import com.henu.exam.bean.ExamInfo;
+import com.henu.exam.dao.ExamInfoMapper;
 import com.henu.exam.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,14 +12,11 @@ import java.text.SimpleDateFormat;
 public class AdminServiceImpl implements AdminService {
 
     @Autowired(required = false)
-    private PaperInfoMapper paperInfoMapper;
+    private ExamInfoMapper examInfoMapper;
 
     @Override
-    public int insert(PaperInfo paperInfo) {
+    public int insert(ExamInfo examInfo) {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-
-        return paperInfoMapper.insert(paperInfo);
+        return examInfoMapper.insert(examInfo);
     }
 }

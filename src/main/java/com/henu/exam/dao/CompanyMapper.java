@@ -7,15 +7,18 @@ import java.util.List;
 
 @Mapper
 public interface CompanyMapper {
-    int deleteByPrimaryKey(String id);
 
-    int insert(Company record);
+    int deleteById(String id);
 
-    int insertSelective(Company record);
+    int insert(Company company);
+
+    int insertSelective(Company company);
+
+    Company selectById(String id);
 
     List<Company> selectAll();
 
-    int updateByPrimaryKeySelective(Company record);
+    int updateByIdSelective(Company company);
 
-    int updateByPrimaryKey(Company record);
+    int updateById(Company company);
 }

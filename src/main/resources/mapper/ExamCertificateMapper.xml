@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.henu.exam.dao.ExamCertificateMapper">
+  <resultMap id="BaseResultMap" type="com.henu.exam.bean.ExamCertificate">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="account_id" jdbcType="VARCHAR" property="accountId" />
+    <result column="com_id" jdbcType="VARCHAR" property="comId" />
+    <result column="exam_id" jdbcType="VARCHAR" property="examId" />
+    <result column="qualified" jdbcType="INTEGER" property="qualified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, account_id, com_id, exam_id, qualified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from exam_certificate
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from exam_certificate
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.henu.exam.bean.ExamCertificate">
+    insert into exam_certificate (id, account_id, com_id, 
+      exam_id, qualified)
+    values (#{id,jdbcType=VARCHAR}, #{accountId,jdbcType=VARCHAR}, #{comId,jdbcType=VARCHAR}, 
+      #{examId,jdbcType=VARCHAR}, #{qualified,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.henu.exam.bean.ExamCertificate">
+    insert into exam_certificate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="accountId != null">
+        account_id,
+      </if>
+      <if test="comId != null">
+        com_id,
+      </if>
+      <if test="examId != null">
+        exam_id,
+      </if>
+      <if test="qualified != null">
+        qualified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null">
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="comId != null">
+        #{comId,jdbcType=VARCHAR},
+      </if>
+      <if test="examId != null">
+        #{examId,jdbcType=VARCHAR},
+      </if>
+      <if test="qualified != null">
+        #{qualified,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.henu.exam.bean.ExamCertificate">
+    update exam_certificate
+    <set>
+      <if test="accountId != null">
+        account_id = #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="comId != null">
+        com_id = #{comId,jdbcType=VARCHAR},
+      </if>
+      <if test="examId != null">
+        exam_id = #{examId,jdbcType=VARCHAR},
+      </if>
+      <if test="qualified != null">
+        qualified = #{qualified,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.henu.exam.bean.ExamCertificate">
+    update exam_certificate
+    set account_id = #{accountId,jdbcType=VARCHAR},
+      com_id = #{comId,jdbcType=VARCHAR},
+      exam_id = #{examId,jdbcType=VARCHAR},
+      qualified = #{qualified,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

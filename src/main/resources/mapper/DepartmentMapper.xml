@@ -2,45 +2,48 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.henu.exam.dao.DepartmentMapper">
   <resultMap id="BaseResultMap" type="com.henu.exam.bean.Department">
-    <id column="ID" jdbcType="VARCHAR" property="id" />
-    <result column="NAME" jdbcType="VARCHAR" property="name" />
-    <result column="PERSONS" jdbcType="DECIMAL" property="persons" />
-    <result column="NOTE" jdbcType="VARCHAR" property="note" />
-    <result column="COMNAME" jdbcType="VARCHAR" property="comname" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="comName" jdbcType="VARCHAR" property="com_name" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID, NAME, PERSONS, NOTE, COMNAME
+    id, com_name, name, num, note
   </sql>
+
   <select id="selectByComName" parameterType="java.lang.String" resultType="com.henu.exam.bean.Department">
-    select * from DEPARTMENT where COMNAME = #{comName,jdbcType=VARCHAR}
+    select * from department where com_name = #{comName,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from DEPARTMENT
-    where ID = #{id,jdbcType=VARCHAR}
+  <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select *
+    from department
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteById" parameterType="java.lang.String">
+    delete from department
+    where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.henu.exam.bean.Department">
-    insert into DEPARTMENT (ID, NAME, PERSONS, 
-      NOTE, COMNAME)
-    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{persons,jdbcType=DECIMAL}, 
-      #{note,jdbcType=VARCHAR}, #{comname,jdbcType=VARCHAR})
+    insert into department (id, name, num, 
+      note)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{num,jdbcType=INTEGER}, 
+      #{note,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.henu.exam.bean.Department">
-    insert into DEPARTMENT
+    insert into department
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        ID,
+        id,
       </if>
       <if test="name != null">
-        NAME,
+        name,
       </if>
-      <if test="persons != null">
-        PERSONS,
+      <if test="num != null">
+        num,
       </if>
       <if test="note != null">
-        NOTE,
-      </if>
-      <if test="comname != null">
-        COMNAME,
+        note,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -50,41 +53,34 @@
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="persons != null">
-        #{persons,jdbcType=DECIMAL},
+      <if test="num != null">
+        #{num,jdbcType=INTEGER},
       </if>
       <if test="note != null">
         #{note,jdbcType=VARCHAR},
       </if>
-      <if test="comname != null">
-        #{comname,jdbcType=VARCHAR},
-      </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.henu.exam.bean.Department">
-    update DEPARTMENT
+  <update id="updateByIdSelective" parameterType="com.henu.exam.bean.Department">
+    update department
     <set>
       <if test="name != null">
-        NAME = #{name,jdbcType=VARCHAR},
+        name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="persons != null">
-        PERSONS = #{persons,jdbcType=DECIMAL},
+      <if test="num != null">
+        num = #{num,jdbcType=INTEGER},
       </if>
       <if test="note != null">
-        NOTE = #{note,jdbcType=VARCHAR},
-      </if>
-      <if test="comname != null">
-        COMNAME = #{comname,jdbcType=VARCHAR},
+        note = #{note,jdbcType=VARCHAR},
       </if>
     </set>
-    where ID = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.henu.exam.bean.Department">
-    update DEPARTMENT
-    set NAME = #{name,jdbcType=VARCHAR},
-      PERSONS = #{persons,jdbcType=DECIMAL},
-      NOTE = #{note,jdbcType=VARCHAR},
-      COMNAME = #{comname,jdbcType=VARCHAR}
-    where ID = #{id,jdbcType=VARCHAR}
+  <update id="updateById" parameterType="com.henu.exam.bean.Department">
+    update department
+    set name = #{name,jdbcType=VARCHAR},
+      num = #{num,jdbcType=INTEGER},
+      note = #{note,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

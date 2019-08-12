@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.henu.exam.dao.ExamInfoMapper">
+  <resultMap id="BaseResultMap" type="com.henu.exam.bean.ExamInfo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="duration" jdbcType="INTEGER" property="duration" />
+    <result column="total_score" jdbcType="INTEGER" property="totalScore" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="question_db_id" jdbcType="INTEGER" property="questionDbId" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="show_mode" jdbcType="INTEGER" property="showMode" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="multiple_num" jdbcType="INTEGER" property="multipleNum" />
+    <result column="single_num" jdbcType="INTEGER" property="singleNum" />
+    <result column="blank_num" jdbcType="INTEGER" property="blankNum" />
+    <result column="judge_num" jdbcType="INTEGER" property="judgeNum" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, status, start_time, end_time, duration, total_score, description, question_db_id, 
+    create_date, show_mode, creator, multiple_num, single_num, blank_num, judge_num, 
+    note
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select *
+    from exam_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteById" parameterType="java.lang.String">
+    delete from exam_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.henu.exam.bean.ExamInfo">
+    insert into exam_info (id, name, status, 
+      start_time, end_time, duration, 
+      total_score, description, question_db_id, 
+      create_date, show_mode, creator, 
+      multiple_num, single_num, blank_num, 
+      judge_num, note)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{duration,jdbcType=INTEGER}, 
+      #{totalScore,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{questionDbId,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{showMode,jdbcType=INTEGER}, #{creator,jdbcType=VARCHAR}, 
+      #{multipleNum,jdbcType=INTEGER}, #{singleNum,jdbcType=INTEGER}, #{blankNum,jdbcType=INTEGER}, 
+      #{judgeNum,jdbcType=INTEGER}, #{note,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.henu.exam.bean.ExamInfo">
+    insert into exam_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="duration != null">
+        duration,
+      </if>
+      <if test="totalScore != null">
+        total_score,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="questionDbId != null">
+        question_db_id,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="showMode != null">
+        show_mode,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="multipleNum != null">
+        multiple_num,
+      </if>
+      <if test="singleNum != null">
+        single_num,
+      </if>
+      <if test="blankNum != null">
+        blank_num,
+      </if>
+      <if test="judgeNum != null">
+        judge_num,
+      </if>
+      <if test="note != null">
+        note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="duration != null">
+        #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="totalScore != null">
+        #{totalScore,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="questionDbId != null">
+        #{questionDbId,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="showMode != null">
+        #{showMode,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="multipleNum != null">
+        #{multipleNum,jdbcType=INTEGER},
+      </if>
+      <if test="singleNum != null">
+        #{singleNum,jdbcType=INTEGER},
+      </if>
+      <if test="blankNum != null">
+        #{blankNum,jdbcType=INTEGER},
+      </if>
+      <if test="judgeNum != null">
+        #{judgeNum,jdbcType=INTEGER},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByIdSelective" parameterType="com.henu.exam.bean.ExamInfo">
+    update exam_info
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="duration != null">
+        duration = #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="totalScore != null">
+        total_score = #{totalScore,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="questionDbId != null">
+        question_db_id = #{questionDbId,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="showMode != null">
+        show_mode = #{showMode,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="multipleNum != null">
+        multiple_num = #{multipleNum,jdbcType=INTEGER},
+      </if>
+      <if test="singleNum != null">
+        single_num = #{singleNum,jdbcType=INTEGER},
+      </if>
+      <if test="blankNum != null">
+        blank_num = #{blankNum,jdbcType=INTEGER},
+      </if>
+      <if test="judgeNum != null">
+        judge_num = #{judgeNum,jdbcType=INTEGER},
+      </if>
+      <if test="note != null">
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateById" parameterType="com.henu.exam.bean.ExamInfo">
+    update exam_info
+    set name = #{name,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      duration = #{duration,jdbcType=INTEGER},
+      total_score = #{totalScore,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      question_db_id = #{questionDbId,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      show_mode = #{showMode,jdbcType=INTEGER},
+      creator = #{creator,jdbcType=VARCHAR},
+      multiple_num = #{multipleNum,jdbcType=INTEGER},
+      single_num = #{singleNum,jdbcType=INTEGER},
+      blank_num = #{blankNum,jdbcType=INTEGER},
+      judge_num = #{judgeNum,jdbcType=INTEGER},
+      note = #{note,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

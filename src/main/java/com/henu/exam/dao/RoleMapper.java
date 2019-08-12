@@ -5,13 +5,13 @@ import com.henu.exam.bean.Role;
 public interface RoleMapper {
     int deleteByPrimaryKey(String id);
 
-    int insert(Role role);
+    int insert(Role record);
 
-    int insertSelective(Role role);
+    int insertSelective(Role record);
 
-    Role selectByPrimaryKey(String role);
+    Role selectByPrimaryKey(String id);
 
-    int updateByPrimaryKeySelective(Role role);
+    int updateByPrimaryKeySelective(Role record);
 
-    int updateByPrimaryKey(Role role);
+    int updateByPrimaryKey(Role record);
 }

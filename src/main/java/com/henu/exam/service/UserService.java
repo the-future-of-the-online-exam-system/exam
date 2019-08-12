@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface UserService {
 
-    int deleteByUsername(String username);
+    int deleteByUserId(String username);
 
     int register(User user);
 

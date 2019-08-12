@@ -3,13 +3,13 @@ package com.henu.exam.dao;
 import com.henu.exam.bean.Question;
 
 public interface QuestionMapper {
-    int deleteByPrimaryKey(String questionsdbid);
+    int deleteByPrimaryKey(String id);
 
     int insert(Question record);
 
     int insertSelective(Question record);
 
-    Question selectByPrimaryKey(String questionsdbid);
+    Question selectByPrimaryKey(String id);
 
     int updateByPrimaryKeySelective(Question record);
 

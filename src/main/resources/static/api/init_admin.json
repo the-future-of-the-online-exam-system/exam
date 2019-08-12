@@ -1,0 +1,115 @@
+{
+	"clearInfo": {
+		"clearUrl": "/static/api/clear.json"
+	},
+	"homeInfo": {
+		"title": "首页",
+		"icon": "fa fa-home",
+		"href": "/admin/welcome"
+	},
+	"logoInfo": {
+		"title": "ExamOnline",
+		"image": "/static/style/images/logo.png",
+		"href": ""
+	},
+	"menuInfo": {
+		"currency": {
+			"title": "常规管理",
+			"icon": "fa fa-address-book",
+			"child": [
+				{
+					"title": "试卷管理",
+					"href": "page/default.html",
+					"icon": "fa fa-edit",
+					"target": "_self",
+					"child":[
+						{
+							"title": "手动试卷生成",
+							"href": "/admin/createPaper",
+							"icon": "fa fa-pencil-square",
+							"target": "_self"
+						},
+						{
+							"title": "管理试卷",
+							"href": "/admin/managePaper",
+							"icon": "fa fa-edit",
+							"target": "_self"
+						}
+					]
+				},
+				{
+					"title": "用户管理",
+					"href": "page/table-Trainee.html",
+					"icon": "fa fa-users",
+					"target": "_self",
+					"child" : [
+						{
+							"title": "学员管理",
+							"href": "/admin/manageUser",
+							"icon": "fa fa-child",
+							"target": "_self"
+						},
+						{
+							"title": "部门管理员管理",
+							"href": "/admin/manageDepartAdmin",
+							"icon": "fa fa-male",
+							"target": "_self"
+						}
+					]
+				},
+				{
+					"title": "成绩分析",
+					"href": "/404",
+					"icon": "fa fa-bar-chart",
+					"target": "_self",
+					"child":[
+						{
+							"title": "单位成绩分析",
+							"href": "/404",
+							"icon": "fa fa-pie-chart",
+							"target": "_self"
+						},
+						{
+							"title": "部门成绩分析",
+							"href": "/404",
+							"icon": "fa fa-line-chart",
+							"target": "_self"
+						}
+					]
+				},
+				{
+					"title": "公告管理",
+					"href": "/admin/manageNews",
+					"icon": "fa fa-bullhorn",
+					"target": "_self"
+				},
+				{
+					"title": "个人信息管理",
+					"href": "/admin/user_setting",
+					"icon": "fa fa-user",
+					"target": "_self"
+				},
+				{
+					"title": "系统帮助",
+					"href": "",
+					"icon": "fa fa-gears",
+					"target": "",
+					"child": [
+						{
+							"title": "使用说明",
+							"href": "/admin/404",
+							"icon": "fa fa-question-circle",
+							"target": "_self"
+						},
+						{
+							"title": "关于系统",
+							"href": "/admin/aboutSystem",
+							"icon": "layui-icon layui-icon-about",
+							"target": "_self"
+						}
+					]
+				}
+			]
+		}
+	}
+}

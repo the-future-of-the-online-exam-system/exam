@@ -38,17 +38,16 @@
 		<div class="layui-container">
 			<div class="admin-login-background">
 				<div class="layui-form login-form">
-					<form class="layui-form layuimini-form layui-form-pane" action="">
 						<div class="layui-form-item logo-title">
 							<h1>ExamOnline注册</h1>
 						</div>
 						<div class="layui-form-item">
 							<label class="layui-icon layui-icon-username required" for="TraineeName"></label>
-							<input type="text" name="TraineeName" lay-verify="required|account" placeholder="用户名" autocomplete="off" class="layui-input" value="">
+							<input type="text" name="username" lay-verify="required|account" placeholder="用户名" autocomplete="off" class="layui-input" value="">
 						</div>
 						<div class="layui-form-item">
 							<label class="layui-icon layui-icon-password required" for="newpwd1"></label>
-							<input type="password" id="newpwd1" name="Password" lay-verify="required|password" placeholder="密码" autocomplete="off" class="layui-input" value="">
+							<input type="password" id="newpwd1" name="password" lay-verify="required|password" placeholder="密码" autocomplete="off" class="layui-input" value="">
 						</div>
 						<div class="layui-form-item" style="margin-bottom: 0px;">
 							<label class="layui-icon layui-icon-password required" for="newpwd2"></label>
@@ -59,7 +58,7 @@
 						</div>
 						<div class="layui-form-item">
 							<label class="fa fa-sitemap required" for="username"></label>
-							<select lay-filter="ComID" id="ComID" class="select" name="ComID" lay-verify="required" lay-reqtext="所在单位编号不能为空" placeholder="请输入所在单位编号">
+							<select lay-filter="ComID" id="ComID" class="select" name="com" lay-verify="required" lay-reqtext="所在单位编号不能为空" placeholder="请输入所在单位编号">
 								<option value="">请选择所在单位</option>
 								<option th:each="company : ${companyList}" th:value="${company.name}" th:text="${company.name}"></option>
 
@@ -67,31 +66,30 @@
 						</div>
 						<div class="layui-form-item">
 							<label class="fa fa-group required" for="username"></label>
-							<select id="DepartID" class="select" name="DepartID" lay-verify="required" lay-reqtext="所在部门编号不能为空" placeholder="请输入所在部门编号" lay-search="">
+							<select id="DepartID" class="select" name="depart" lay-verify="required" lay-reqtext="所在部门编号不能为空" placeholder="请输入所在部门编号" lay-search="">
 								<option value="">请选择部门</option>
 							</select>
 						</div>
 						<div class="layui-form-item">
 							<label class="fa fa-newspaper-o" for="username"></label>
-							<input type="text" name="Title" lay-verify="" placeholder="请输入职称" autocomplete="off" class="layui-input" value="">
+							<input type="text" name="title" lay-verify="" placeholder="请输入职称" autocomplete="off" class="layui-input" value="">
 						</div>
 						<div class="layui-form-item">
 							<label class="fa fa-briefcase" for="username"></label>
-							<input type="text" name="Position" lay-verify="" placeholder="请输入职务" autocomplete="off" class="layui-input" value="">
+							<input type="text" name="position" lay-verify="" placeholder="请输入职务" autocomplete="off" class="layui-input" value="">
 						</div>
 						<div class="layui-form-item">
 							<label class="layui-icon layui-icon-cellphone" for="username"></label>
-							<input type="number" name="Phone" lay-verify="phone" placeholder="请输入电话" autocomplete="off" class="layui-input" value="">
+							<input type="number" name="phone" lay-verify="phone" placeholder="请输入电话" autocomplete="off" class="layui-input" value="">
 						</div>
 						<div class="layui-form-item">
 							<label class="fa fa-envelope-o" for="username"></label>
-							<input type="email" name="EMAIL" lay-verify="email" placeholder="请输入邮箱" autocomplete="off" class="layui-input" value="">
+							<input type="email" name="email" lay-verify="email" placeholder="请输入邮箱" autocomplete="off" class="layui-input" value="">
 						</div>
 						<div class="layui-form-item">
-							<button class="layui-btn layui-btn-fluid" id="btn_sub" lay-filter="register" >注 册</button>
+							<button type="button" class="layui-btn layui-btn-fluid" lay-submit="" id="btn_sub" lay-filter="register">注 册</button>
 						</div>
 
-					</form>
 				</div>
 			</div>
 		</div>
@@ -101,6 +99,71 @@
 		<!-- <script src="../js/layarea.js" type="text/javascript" charset="utf-8"></script> -->
 		<script>
 
+			$("#btn_sub").click(function(){
+				var username = $("input[name='username']").val();
+				var password = $("input[name='password']").val();
+				var title = $("input[name='title']").val();
+				var position = $("input[name='position']").val();
+				var phone = $("input[name='phone']").val();
+				var email = $("input[name='email']").val();
+				var com = $("select[name='com']").val();
+				var depart = $("select[name='depart']").val();
+				var rePassword = $("input[name='rePassword']").val();
+
+				if (username == '') {
+					layer.msg('用户名不能为空');
+					return false;
+				}
+				if (password == '') {
+					layer.msg('密码不能为空');
+					return false;
+				}
+				if (rePassword == '') {
+					layer.msg('确认密码不能为空');
+					return false;
+				}
+				if (com == '') {
+					layer.msg('单位不能为空');
+					return false;
+				}
+				if (depart == '') {
+					layer.msg('部门不能为空');
+
+					return false;
+				}
+
+
+				$.ajax({
+					url: "http://localhost:8080/common/register.do",
+					type: "POST",
+
+					data: {
+						username: username,
+						password: password,
+						com:com,
+						department:depart,
+						title:title,
+						position:position,
+						phone:phone,
+						email:email
+					},
+					dataType:"json",
+
+					success: function(msg) {
+
+						if (msg == 2) {
+							layer.msg("注册成功", {icon: 6});
+							window.location.href = 'http://localhost:8080';
+						} else {
+							layer.msg("注册失败", {icon: 5});
+						}
+					},
+					error:function() {
+
+						layer.msg("系统错误，请稍后再试!", {icon: 5});
+					}
+				});
+			});
 			layui.use(['layer', 'form'], function() {
 				var form = layui.form,
 					layer = layui.layer,
@@ -144,16 +207,16 @@
 					if (pwd == "" || rpwd == "") {
 						//若都为空，则提示密码不能为空，为了用户体验（在界面上用required同时做了处理）
 						$("#msg_pwd").html("<font color='red' style='margin-left:30px;'>密码不能为空</font>");
-						$("#btn_sub").attr("disabled", true); //使按钮无法点击
+						//$("#btn_sub").attr("disabled", true); //使按钮无法点击
 						return false;
 					} else {
 						if (pwd == rpwd) { //相同则提示密码匹配
 							$("#msg_pwd").html("<font color='green' style='margin-left:30px;'>两次密码匹配通过</font>");
-							$("#0-+------------------11").attr("disabled", false); //使按钮无法点击
+							//$("#0-+------------------11").attr("disabled", false); //使按钮无法点击
 							return true;
 						} else { //不相同则提示密码匹配
 							$("#msg_pwd").html("<font color='red' style='margin-left:30px;'>两次密码不匹配</font>");
-							$("#btn_sub").attr("disabled", true);
+							//$("#btn_sub").attr("disabled", true);
 							return false;
 						}
 					}
@@ -179,67 +242,10 @@
 							layer.msg("系统错误，请稍后再试!", {icon: 5});
 						}
 					});
-				});
-				// 进行登录操作
-				form.on('submit(register)', function(data) {
-					data = data.field;
-					if (data.TraineeName == '') {
-						layer.msg('用户名不能为空');
-						return false;
-					}
-					if (data.Password == '') {
-						layer.msg('密码不能为空');
-						return false;
-					}
-					if (data.rePassword == '') {
-						layer.msg('确认密码不能为空');
-						return false;
-					}
-					if (data.ComID == '') {
-						layer.msg('单位不能为空');
-						return false;
-					}
-					if (data.DepartID == '') {
-						layer.msg('部门不能为空');
-
-						return false;
-					}
-					
-
-					$.ajax({
-						url: "http://localhost:8080/common/register.do",
-						type: "POST",
-						data: {
-							username: data.TraineeName,
-							password: data.Password,
-							comid:data.ComID,
-							departid:data.DepartID,
-							title:data.Title,
-							position:data.Position,
-							phone:data.Phone,
-							email:data.EMAIL
-						},
-						success: function(msg) {
-							var json = JSON.parse(msg);
-							var returnCode = json.returnCode;
-							if (returnCode == 200) {
-								layer.msg("注册成功", {icon: 6});
-								window.location.href = 'login';
-							} else {
-								layer.msg("注册失败", {icon: 5});
-							}
-						},
-						error:function(msg) {
-							var json = JSON.parse(msg);
-							var returnCode = json.returnCode;
-							if (returnCode != 200) {
-								layer.msg("注册失败", {icon: 5});
-							}
-						}
-					});
 
 					return false;
 				});
+
 			});
 		</script>
 	</body>
